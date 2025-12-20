@@ -205,24 +205,6 @@ function App() {
                 </ul>
               </div>
             </div>
-            <div className="timeline-item">
-              <div className="timeline-marker"></div>
-              <div className="timeline-content">
-                <div className="job-header">
-                  <h3>Lecturer</h3>
-                  <span className="company">Math Honor Society</span>
-                </div>
-                <div className="job-meta">
-                  <span className="date">2020 - 2024</span>
-                  <span className="location">Raleigh, NC</span>
-                </div>
-                <ul className="job-details">
-                  <li>Competed in statewide and countrywide math competitions</li>
-                  <li>Presented lectures on topics ranging from Statistics to Algorithms</li>
-                  <li>Tutored topics ranging from Physics and Computer Science to Calculus and Linear Algebra</li>
-                </ul>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -306,6 +288,7 @@ function App() {
           <div className="section-header">
             <h2><span className="section-keyword">structure</span> Teaching <span className="colon">:</span> <span className="type">INSTRUCTOR</span> <span className="section-eq">=</span></h2>
           </div>
+          <div className="teaching-grid">
           <div className="teaching-card">
             <div className="teaching-header">
               <div className="course-title">
@@ -332,6 +315,30 @@ function App() {
                 ))}
               </div>
             </div>
+          </div>
+
+          <div className="teaching-card secondary">
+            <div className="teaching-header">
+              <div className="course-title">
+                <h3>Math Honor Society</h3>
+              </div>
+              <span className="course-role">Lecturer</span>
+            </div>
+            <p className="course-institution">Raleigh, NC | 2020 - 2024</p>
+            <p className="course-description">
+              Competed in statewide and countrywide math competitions. Presented lectures on topics 
+              ranging from Statistics to Algorithms. Tutored topics ranging from Physics and Computer 
+              Science to Calculus and Linear Algebra.
+            </p>
+            <div className="course-topics">
+              <h4><span className="keyword">instance</span> Topics <span className="keyword">where</span></h4>
+              <div className="topic-tags">
+                {['Statistics', 'Algorithms', 'Physics', 'Computer Science', 'Calculus', 'Linear Algebra'].map(topic => (
+                  <span key={topic} className="topic-tag">{topic}</span>
+                ))}
+              </div>
+            </div>
+          </div>
           </div>
         </section>
 

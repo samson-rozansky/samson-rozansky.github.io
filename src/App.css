@@ -747,10 +747,16 @@ main {
 }
 
 .teaching-section .section-header,
-.teaching-section .teaching-card {
+.teaching-section .teaching-grid {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.teaching-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .teaching-card {
@@ -760,6 +766,16 @@ main {
   padding: 2.5rem;
   backdrop-filter: blur(8px);
   box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.teaching-card.secondary {
+  border: 1px solid var(--card-border);
+  box-shadow: none;
+}
+
+.teaching-card.secondary:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
 .teaching-header {
