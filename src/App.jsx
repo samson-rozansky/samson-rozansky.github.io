@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaSun, FaMoon, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt } from 'react-icons/fa'
 import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
 import { BiCodeBlock } from 'react-icons/bi'
-import { TbLambda, TbBrain, TbNetwork } from 'react-icons/tb'
-import { HiAcademicCap, HiBriefcase, HiCode, HiLightBulb, HiSparkles } from 'react-icons/hi'
+import { TbLambda, TbBrain } from 'react-icons/tb'
+import { HiCode } from 'react-icons/hi'
 import './App.css'
 
 function App() {
@@ -12,6 +12,22 @@ function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
   }, [isDark])
+
+  const courses = [
+    { code: '15-122', name: 'Principles of Imperative Computation' },
+    { code: '15-150', name: 'Principles of Functional Programming' },
+    { code: '15-151', name: 'Mathematical Foundations of CS' },
+    { code: '15-213', name: 'Introduction to Computer Systems' },
+    { code: '15-251', name: 'Great Ideas in Theoretical CS' },
+    { code: '15-259', name: 'Probability and Computing' },
+    { code: '15-317', name: 'Constructive Logic' },
+    { code: '15-210', name: 'Parallel & Sequential Data Structures' },
+    { code: '15-445', name: 'Database Systems' },
+    { code: '07-280', name: 'AI/ML I' },
+    { code: '21-242', name: 'Matrix Theory' },
+    { code: '21-268', name: 'Multidimensional Calculus' },
+    { code: '80-305', name: 'Game Theory' },
+  ]
 
   return (
     <div className="app">
@@ -24,11 +40,11 @@ function App() {
             <span className="logo-text">SR</span>
           </div>
           <div className="nav-links">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#teaching">Teaching</a>
-            <a href="#contact">Contact</a>
+            <a href="#about"><span className="nav-lambda">λ</span>about</a>
+            <a href="#experience"><span className="nav-lambda">λ</span>experience</a>
+            <a href="#projects"><span className="nav-lambda">λ</span>projects</a>
+            <a href="#teaching"><span className="nav-lambda">λ</span>teaching</a>
+            <a href="#contact"><span className="nav-lambda">λ</span>contact</a>
             <button 
               className="theme-toggle" 
               onClick={() => setIsDark(!isDark)}
@@ -46,19 +62,19 @@ function App() {
             <div className="type-annotation">
               <span className="keyword">val</span> samson <span className="colon">:</span> <span className="type">Developer</span>
             </div>
-            <h1 className="name">Samson Rozansky</h1>
+            <h1 className="name">
+              <TbLambda className="name-lambda" />
+              Samson Rozansky
+            </h1>
             <p className="tagline">
               Computer Science @ Carnegie Mellon University
             </p>
             <p className="sub-tagline">
-              Machine Learning <span className="operator">|</span> Functional Programming <span className="operator">|</span> Systems
+              Machine Learning <span className="operator">|></span> Functional Programming <span className="operator">|></span> Systems
             </p>
             <div className="hero-links">
               <a href="mailto:samsonrozansky@gmail.com" className="hero-link">
                 <FaEnvelope /> samsonrozansky@gmail.com
-              </a>
-              <a href="tel:919-520-4648" className="hero-link">
-                <FaPhone /> 919-520-4648
               </a>
               <a href="https://github.com/samson-rozansky" target="_blank" rel="noopener noreferrer" className="hero-link">
                 <FaGithub /> github.com/samson-rozansky
@@ -82,8 +98,7 @@ function App() {
 
         <section id="education" className="section">
           <div className="section-header">
-            <HiAcademicCap className="section-icon" />
-            <h2>Education</h2>
+            <h2><span className="section-keyword">datatype</span> Education <span className="section-eq">=</span></h2>
           </div>
           <div className="education-card">
             <div className="edu-main">
@@ -94,13 +109,13 @@ function App() {
             <p className="edu-concentration">Concentration in Machine Learning</p>
             <p className="edu-years">2024 - 2028</p>
             <div className="coursework">
-              <h4>Relevant Coursework</h4>
+              <h4><span className="keyword">type class</span> Coursework <span className="keyword">where</span></h4>
               <div className="course-tags">
-                {['Computer Systems', 'Imperative Programming', 'Functional Programming', 
-                  'Game Theory', 'Calculus 3', 'Linear Algebra', 'Differential Equations', 
-                  'Discrete Math', 'Constructive Logic', 'Theoretical Computer Science', 
-                  'Computational Probability'].map(course => (
-                  <span key={course} className="course-tag">{course}</span>
+                {courses.map(course => (
+                  <span key={course.code} className="course-tag">
+                    <span className="course-code">{course.code}</span>
+                    <span className="course-name">{course.name}</span>
+                  </span>
                 ))}
               </div>
             </div>
@@ -109,12 +124,11 @@ function App() {
 
         <section id="skills" className="section">
           <div className="section-header">
-            <BiCodeBlock className="section-icon" />
-            <h2>Technical Skills</h2>
+            <h2><span className="section-keyword">signature</span> SKILLS <span className="section-eq">=</span> <span className="section-keyword">sig</span></h2>
           </div>
           <div className="skills-grid">
             <div className="skill-category">
-              <h4>Languages</h4>
+              <h4><span className="keyword">val</span> languages <span className="colon">:</span> <span className="type">list</span></h4>
               <div className="skill-items">
                 <div className="skill-item"><SiPython /> Python</div>
                 <div className="skill-item"><SiCplusplus /> C/C++</div>
@@ -127,7 +141,7 @@ function App() {
               </div>
             </div>
             <div className="skill-category">
-              <h4>Frameworks & Libraries</h4>
+              <h4><span className="keyword">val</span> frameworks <span className="colon">:</span> <span className="type">list</span></h4>
               <div className="skill-items">
                 <div className="skill-item"><SiPandas /> Pandas</div>
                 <div className="skill-item"><HiCode /> BeautifulSoup</div>
@@ -136,7 +150,7 @@ function App() {
               </div>
             </div>
             <div className="skill-category">
-              <h4>Tools</h4>
+              <h4><span className="keyword">val</span> tools <span className="colon">:</span> <span className="type">list</span></h4>
               <div className="skill-items">
                 <div className="skill-item"><SiLinux /> Linux</div>
                 <div className="skill-item"><SiLatex /> LaTeX</div>
@@ -145,12 +159,12 @@ function App() {
               </div>
             </div>
           </div>
+          <div className="section-end"><span className="section-keyword">end</span></div>
         </section>
 
         <section id="experience" className="section">
           <div className="section-header">
-            <HiBriefcase className="section-icon" />
-            <h2>Experience</h2>
+            <h2><span className="section-keyword">fun</span> experience <span className="section-eq">=</span> <span className="section-keyword">fn</span> () <span className="section-arrow">=&gt;</span></h2>
           </div>
           <div className="timeline">
             <div className="timeline-item">
@@ -214,8 +228,7 @@ function App() {
 
         <section id="projects" className="section">
           <div className="section-header">
-            <HiLightBulb className="section-icon" />
-            <h2>Projects</h2>
+            <h2><span className="section-keyword">val</span> projects <span className="colon">:</span> <span className="type">unit</span> <span className="section-arrow">-&gt;</span> <span className="type">project list</span></h2>
           </div>
           <div className="projects-grid">
             <div className="project-card">
@@ -291,8 +304,7 @@ function App() {
 
         <section id="teaching" className="section teaching-section">
           <div className="section-header">
-            <TbLambda className="section-icon" />
-            <h2>Teaching</h2>
+            <h2><span className="section-keyword">structure</span> Teaching <span className="colon">:</span> <span className="type">INSTRUCTOR</span> <span className="section-eq">=</span></h2>
           </div>
           <div className="teaching-card">
             <div className="teaching-header">
@@ -300,8 +312,8 @@ function App() {
                 <h3>98-317: Hype for Types</h3>
                 <a href="https://hypefortypes.github.io/" target="_blank" rel="noopener noreferrer" className="course-link">
                   <FaExternalLinkAlt />
-                </a>
-              </div>
+        </a>
+      </div>
               <span className="course-role">Instructor</span>
             </div>
             <p className="course-institution">Carnegie Mellon University</p>
@@ -311,7 +323,7 @@ function App() {
               in type theory and programming language theory.
             </p>
             <div className="course-topics">
-              <h4>Topics Covered</h4>
+              <h4><span className="keyword">instance</span> Topics <span className="keyword">where</span></h4>
               <div className="topic-tags">
                 {['Simply-Typed Lambda Calculus', 'Algebraic Data Types', 'Curry-Howard Isomorphism',
                   'Continuations', 'Substructural Logic', 'Phantom Types', 'Polymorphism',
@@ -325,8 +337,7 @@ function App() {
 
         <section id="honors" className="section">
           <div className="section-header">
-            <HiSparkles className="section-icon" />
-            <h2>Honors & Awards</h2>
+            <h2><span className="section-keyword">val</span> honors <span className="colon">:</span> <span className="type">achievement list</span> <span className="section-eq">=</span></h2>
           </div>
           <div className="honors-list">
             {[
@@ -336,12 +347,16 @@ function App() {
               { title: "First overall in the world in American Computer Science League", date: "2020 - 2024" },
               { title: "Top 5 in Citadel Securities Quantitative Challenge", date: "September 2024" },
               { title: "First overall in the world Math Kangaroo with perfect score", date: "March 2024" },
+              { title: "First Place Hunt Institute Datathon - Collegiate Division", date: "March 2023" },
               { title: "First place in NC State DiamondHacks Hackathon Competition", date: "April 2023" },
               { title: "First place in College of Charleston 40th Annual Programming Competition", date: "February 2023" },
             ].map((honor, i) => (
               <div key={i} className="honor-item">
+                <span className="honor-bullet">[</span>
                 <span className="honor-title">{honor.title}</span>
+                <span className="honor-comma">,</span>
                 <span className="honor-date">{honor.date}</span>
+                <span className="honor-bullet">]</span>
               </div>
             ))}
           </div>
@@ -349,9 +364,8 @@ function App() {
 
         <section id="contact" className="section contact-section">
           <div className="section-header">
-            <FaEnvelope className="section-icon" />
-            <h2>Get In Touch</h2>
-          </div>
+            <h2><span className="section-keyword">val</span> contact <span className="colon">:</span> <span className="type">unit</span> <span className="section-arrow">-&gt;</span> <span className="type">connection</span></h2>
+      </div>
           <p className="contact-text">
             Good questions have good answers. Feel free to reach out.
           </p>

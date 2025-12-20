@@ -171,6 +171,12 @@ body {
   position: relative;
 }
 
+.nav-lambda {
+  color: var(--accent-primary);
+  margin-right: 2px;
+  font-weight: 400;
+}
+
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -266,10 +272,15 @@ main {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.name-lambda {
+  color: var(--accent-primary);
+  font-size: 3rem;
+  filter: drop-shadow(0 0 12px var(--accent-glow));
 }
 
 .tagline {
@@ -380,21 +391,31 @@ main {
 }
 
 .section-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   margin-bottom: 2.5rem;
 }
 
-.section-icon {
-  font-size: 1.8rem;
-  color: var(--accent-primary);
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
-.section-header h2 {
-  font-size: 1.8rem;
+.section-keyword {
+  color: var(--keyword-color);
   font-weight: 600;
-  letter-spacing: 1px;
+}
+
+.section-eq {
+  color: var(--operator-color);
+}
+
+.section-arrow {
+  color: var(--operator-color);
+}
+
+.section-end {
+  margin-top: 1.5rem;
+  font-size: 1rem;
 }
 
 /* Education */
@@ -445,9 +466,8 @@ main {
 
 .coursework h4 {
   font-size: 0.95rem;
-  color: var(--text-secondary);
   margin-bottom: 1rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .course-tags {
@@ -457,18 +477,30 @@ main {
 }
 
 .course-tag {
+  display: flex;
+  flex-direction: column;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
-  padding: 0.4rem 0.8rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 6px;
   font-size: 0.8rem;
-  color: var(--text-secondary);
   transition: all var(--transition);
+}
+
+.course-code {
+  color: var(--accent-primary);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.course-name {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
 }
 
 .course-tag:hover {
   border-color: var(--accent-primary);
-  color: var(--accent-primary);
+  transform: translateY(-2px);
 }
 
 /* Skills */
@@ -488,10 +520,8 @@ main {
 
 .skill-category h4 {
   font-size: 0.9rem;
-  color: var(--accent-primary);
   margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-weight: 400;
 }
 
 .skill-items {
@@ -614,11 +644,12 @@ main {
 }
 
 .job-details li::before {
-  content: '>';
+  content: '|>';
   position: absolute;
-  left: -1rem;
+  left: -1.5rem;
   color: var(--accent-primary);
   font-weight: 600;
+  font-size: 0.75rem;
 }
 
 /* Projects */
@@ -675,7 +706,7 @@ main {
 
 .project-details li {
   position: relative;
-  padding-left: 1rem;
+  padding-left: 1.5rem;
   margin-bottom: 0.4rem;
   color: var(--text-secondary);
   font-size: 0.85rem;
@@ -683,10 +714,12 @@ main {
 }
 
 .project-details li::before {
-  content: '-';
+  content: 'fn';
   position: absolute;
   left: 0;
-  color: var(--accent-primary);
+  color: var(--keyword-color);
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
 .project-tech {
@@ -781,10 +814,8 @@ main {
 
 .course-topics h4 {
   font-size: 0.9rem;
-  color: var(--text-muted);
   margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-weight: 400;
 }
 
 .topic-tags {
@@ -812,38 +843,44 @@ main {
 .honors-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .honor-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-left: 3px solid var(--accent-primary);
-  border-radius: 0 8px 8px 0;
-  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
   backdrop-filter: blur(8px);
   transition: all var(--transition);
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  font-size: 0.9rem;
 }
 
 .honor-item:hover {
-  border-left-width: 5px;
+  border-color: var(--accent-primary);
   transform: translateX(4px);
 }
 
+.honor-bullet {
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
 .honor-title {
-  font-size: 0.9rem;
   font-weight: 500;
 }
 
-.honor-date {
+.honor-comma {
   color: var(--text-muted);
-  font-size: 0.8rem;
-  white-space: nowrap;
+}
+
+.honor-date {
+  color: var(--literal-color);
+  font-style: italic;
 }
 
 /* Contact Section */
@@ -954,7 +991,13 @@ main {
   }
 
   .name {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .name-lambda {
+    font-size: 2.5rem;
   }
 
   .hero-links {
@@ -966,7 +1009,7 @@ main {
   }
 
   .section-header h2 {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
   }
 
   .timeline {
