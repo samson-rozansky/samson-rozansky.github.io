@@ -23,9 +23,11 @@ function App() {
     { code: '15-317', name: 'Constructive Logic' },
     { code: '15-210', name: 'Parallel & Sequential Data Structures' },
     { code: '15-445', name: 'Database Systems' },
+    { code: '05-391', name: 'Designing Human-Centered Software' },
     { code: '07-280', name: 'AI/ML I' },
     { code: '21-242', name: 'Honors Matrix Theory' },
     { code: '21-268', name: 'Multidimensional Calculus' },
+    { code: '80-180', name: 'Nature of Language' },
     { code: '80-305', name: 'Game Theory' },
   ]
 
