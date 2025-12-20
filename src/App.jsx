@@ -317,7 +317,7 @@ function App() {
             </div>
           </div>
 
-          <div className="teaching-card secondary">
+          <div className="teaching-card">
             <div className="teaching-header">
               <div className="course-title">
                 <h3>Math Honor Society</h3>

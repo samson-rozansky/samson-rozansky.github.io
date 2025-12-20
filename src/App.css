@@ -761,19 +761,14 @@ main {
 
 .teaching-card {
   background: var(--card-bg);
-  border: 2px solid var(--accent-primary);
+  border: 1px solid var(--card-border);
   border-radius: 16px;
   padding: 2.5rem;
   backdrop-filter: blur(8px);
-  box-shadow: 0 0 30px var(--accent-glow);
+  transition: all var(--transition);
 }
 
-.teaching-card.secondary {
-  border: 1px solid var(--card-border);
-  box-shadow: none;
-}
-
-.teaching-card.secondary:hover {
+.teaching-card:hover {
   border-color: var(--accent-primary);
   box-shadow: 0 0 20px var(--accent-glow);
 }
