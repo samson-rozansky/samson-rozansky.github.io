@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava } from 'react-icons/fa'
-import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas, SiCsharp, SiOcaml, SiNumpy } from 'react-icons/si'
-import { TbLambda, TbBrain, TbWriting, TbChartLine } from 'react-icons/tb'
+import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
+import { TbLambda, TbBrain, TbWriting, TbChartLine, TbBrandCSharp } from 'react-icons/tb'
+import { DiProlog } from 'react-icons/di'
 import { HiCode } from 'react-icons/hi'
 import { BiCodeCurly } from 'react-icons/bi'
 import './App.css'
@@ -97,7 +98,7 @@ function MainPage() {
             Computer Science @ Carnegie Mellon University
           </p>
           <p className="sub-tagline">
-            Machine Learning <span className="operator">|></span> Functional Programming <span className="operator">|></span> Systems
+            Machine Learning <span className="operator">{"|->"}</span> Functional Programming <span className="operator">{"|->"}</span> Systems
           </p>
           <div className="hero-links">
             <a href="mailto:samsonrozansky@gmail.com" className="hero-link">
@@ -317,8 +318,8 @@ function MainPage() {
                 <h3>98-317: Hype for Types</h3>
                 <a href="https://hypefortypes.github.io/" target="_blank" rel="noopener noreferrer" className="course-link">
                   <FaExternalLinkAlt />
-                </a>
-              </div>
+        </a>
+      </div>
               <span className="course-role">Instructor</span>
             </div>
             <p className="course-institution">Carnegie Mellon University</p>
@@ -376,10 +377,10 @@ function MainPage() {
               <div className="skill-item"><SiPython /> Python</div>
               <div className="skill-item"><SiCplusplus /> C/C++</div>
               <div className="skill-item"><FaJava /> Java</div>
-              <div className="skill-item"><SiCsharp /> C#</div>
+              <div className="skill-item"><TbBrandCSharp /> C#</div>
               <div className="skill-item"><SiJavascript /> JavaScript</div>
               <div className="skill-item"><TbLambda /> SML/NJ</div>
-              <div className="skill-item"><SiOcaml /> OCaml</div>
+              <div className="skill-item"><TbLambda /> OCaml</div>
               <div className="skill-item"><BiCodeCurly /> Prolog</div>
             </div>
           </div>
@@ -387,7 +388,7 @@ function MainPage() {
             <h4><span className="keyword">val</span> frameworks <span className="colon">:</span> <span className="type">list</span></h4>
             <div className="skill-items">
               <div className="skill-item"><SiPandas /> Pandas</div>
-              <div className="skill-item"><SiNumpy /> NumPy</div>
+              <div className="skill-item"><HiCode /> BeautifulSoup</div>
               <div className="skill-item"><TbChartLine /> Matplotlib</div>
               <div className="skill-item"><SiFlask /> Flask</div>
             </div>
