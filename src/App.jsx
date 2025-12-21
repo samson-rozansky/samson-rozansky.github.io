@@ -463,6 +463,10 @@ function PersonalPage() {
                 <span className="favorite-value">Ancient Aliens</span>
               </div>
               <div className="favorite-item">
+                <span className="favorite-label">Movie</span>
+                <span className="favorite-value">12 Angry Men</span>
+              </div>
+              <div className="favorite-item">
                 <span className="favorite-label">Book</span>
                 <span className="favorite-value">Frankenstein</span>
               </div>
@@ -471,7 +475,7 @@ function PersonalPage() {
           <div className="personal-card hobbies-card">
             <h3><span className="keyword">val</span> hobbies <span className="colon">:</span> <span className="type">string</span></h3>
             <p className="hobbies-text">
-              I play a lot of trivia including quizbowl competitions - I even played on TV! 
+              I play a lot of trivia including quizbowl competitions and even played on TV! 
               I love reading Hacker News to stay up to date on the latest tech and enjoy 
               diving into the history of technology and computing.
             </p>
