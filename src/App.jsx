@@ -44,9 +44,11 @@ function Header({ isDark, setIsDark }) {
           ) : (
             <>
               <button onClick={() => scrollToSection('about')} className="nav-btn"><span className="nav-lambda">λ</span>about</button>
+              <button onClick={() => scrollToSection('education')} className="nav-btn"><span className="nav-lambda">λ</span>education</button>
               <button onClick={() => scrollToSection('experience')} className="nav-btn"><span className="nav-lambda">λ</span>experience</button>
               <button onClick={() => scrollToSection('projects')} className="nav-btn"><span className="nav-lambda">λ</span>projects</button>
               <button onClick={() => scrollToSection('teaching')} className="nav-btn"><span className="nav-lambda">λ</span>teaching</button>
+              <button onClick={() => scrollToSection('skills')} className="nav-btn"><span className="nav-lambda">λ</span>skills</button>
               <Link to="/personal"><span className="nav-lambda">λ</span>personal</Link>
             </>
           )}
