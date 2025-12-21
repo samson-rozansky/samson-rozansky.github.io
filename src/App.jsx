@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
-import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt } from 'react-icons/fa'
-import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
-import { TbLambda, TbBrain, TbWriting } from 'react-icons/tb'
+import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava } from 'react-icons/fa'
+import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas, SiCsharp, SiOcaml, SiNumpy } from 'react-icons/si'
+import { TbLambda, TbBrain, TbWriting, TbChartLine } from 'react-icons/tb'
 import { HiCode } from 'react-icons/hi'
+import { BiCodeCurly } from 'react-icons/bi'
 import './App.css'
 
 function ScrollToTop() {
@@ -82,6 +83,7 @@ function MainPage() {
 
   return (
     <main>
+      {/* ABOUT */}
       <section id="about" className="hero">
         <div className="hero-content">
           <div className="type-annotation">
@@ -124,6 +126,7 @@ function MainPage() {
         </div>
       </section>
 
+      {/* EDUCATION */}
       <section id="education" className="section">
         <div className="section-header">
           <h2><span className="section-keyword">datatype</span> Education <span className="section-eq">=</span></h2>
@@ -150,46 +153,7 @@ function MainPage() {
         </div>
       </section>
 
-      <section id="skills" className="section">
-        <div className="section-header">
-          <h2><span className="section-keyword">signature</span> SKILLS <span className="section-eq">=</span> <span className="section-keyword">sig</span></h2>
-        </div>
-        <div className="skills-grid">
-          <div className="skill-category">
-            <h4><span className="keyword">val</span> languages <span className="colon">:</span> <span className="type">list</span></h4>
-            <div className="skill-items">
-              <div className="skill-item"><SiPython /> Python</div>
-              <div className="skill-item"><SiCplusplus /> C/C++</div>
-              <div className="skill-item"><HiCode /> Java</div>
-              <div className="skill-item"><HiCode /> C#</div>
-              <div className="skill-item"><SiJavascript /> JavaScript</div>
-              <div className="skill-item"><TbLambda /> SML/NJ</div>
-              <div className="skill-item"><TbLambda /> OCaml</div>
-              <div className="skill-item"><HiCode /> Prolog</div>
-            </div>
-          </div>
-          <div className="skill-category">
-            <h4><span className="keyword">val</span> frameworks <span className="colon">:</span> <span className="type">list</span></h4>
-            <div className="skill-items">
-              <div className="skill-item"><SiPandas /> Pandas</div>
-              <div className="skill-item"><HiCode /> BeautifulSoup</div>
-              <div className="skill-item"><HiCode /> Matplotlib</div>
-              <div className="skill-item"><SiFlask /> Flask</div>
-            </div>
-          </div>
-          <div className="skill-category">
-            <h4><span className="keyword">val</span> tools <span className="colon">:</span> <span className="type">list</span></h4>
-            <div className="skill-items">
-              <div className="skill-item"><SiLinux /> Linux</div>
-              <div className="skill-item"><SiLatex /> LaTeX</div>
-              <div className="skill-item"><SiGit /> Git</div>
-              <div className="skill-item"><FaGithub /> GitHub</div>
-            </div>
-          </div>
-        </div>
-        <div className="section-end"><span className="section-keyword">end</span></div>
-      </section>
-
+      {/* EXPERIENCE */}
       <section id="experience" className="section">
         <div className="section-header">
           <h2><span className="section-keyword">fun</span> experience <span className="section-eq">=</span> <span className="section-keyword">fn</span> () <span className="section-arrow">=&gt;</span></h2>
@@ -236,6 +200,7 @@ function MainPage() {
         </div>
       </section>
 
+      {/* PROJECTS */}
       <section id="projects" className="section">
         <div className="section-header">
           <h2><span className="section-keyword">val</span> projects <span className="colon">:</span> <span className="type">unit</span> <span className="section-arrow">-&gt;</span> <span className="type">project list</span></h2>
@@ -312,6 +277,35 @@ function MainPage() {
         </div>
       </section>
 
+      {/* AWARDS */}
+      <section id="awards" className="section">
+        <div className="section-header">
+          <h2><span className="section-keyword">val</span> awards <span className="colon">:</span> <span className="type">achievement list</span> <span className="section-eq">=</span></h2>
+        </div>
+        <div className="honors-list">
+          {[
+            { title: "Second place in Carnegie AI Safety x Gray Swan Hackathon", date: "November 2025" },
+            { title: "First Place Jane Street GUTS++ Challenge", date: "February 2025" },
+            { title: "Second Place ACM@CMU Algorithms With A Purpose challenge", date: "February 2025" },
+            { title: "First overall in the world in American Computer Science League", date: "2020 - 2024" },
+            { title: "Top 5 in Citadel Securities Quantitative Challenge", date: "September 2024" },
+            { title: "First overall in the world Math Kangaroo with perfect score", date: "March 2024" },
+            { title: "First Place Hunt Institute Datathon - Collegiate Division", date: "March 2023" },
+            { title: "First place in NC State DiamondHacks Hackathon Competition", date: "April 2023" },
+            { title: "First place in College of Charleston 40th Annual Programming Competition", date: "February 2023" },
+          ].map((honor, i) => (
+            <div key={i} className="honor-item">
+              <span className="honor-bullet">[</span>
+              <span className="honor-title">{honor.title}</span>
+              <span className="honor-comma">,</span>
+              <span className="honor-date">{honor.date}</span>
+              <span className="honor-bullet">]</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* TEACHING */}
       <section id="teaching" className="section teaching-section">
         <div className="section-header">
           <h2><span className="section-keyword">structure</span> Teaching <span className="colon">:</span> <span className="type">INSTRUCTOR</span> <span className="section-eq">=</span></h2>
@@ -370,33 +364,48 @@ function MainPage() {
         </div>
       </section>
 
-      <section id="honors" className="section">
+      {/* SKILLS */}
+      <section id="skills" className="section">
         <div className="section-header">
-          <h2><span className="section-keyword">val</span> honors <span className="colon">:</span> <span className="type">achievement list</span> <span className="section-eq">=</span></h2>
+          <h2><span className="section-keyword">signature</span> SKILLS <span className="section-eq">=</span> <span className="section-keyword">sig</span></h2>
         </div>
-        <div className="honors-list">
-          {[
-            { title: "Second place in Carnegie AI Safety x Gray Swan Hackathon", date: "November 2025" },
-            { title: "First Place Jane Street GUTS++ Challenge", date: "February 2025" },
-            { title: "Second Place ACM@CMU Algorithms With A Purpose challenge", date: "February 2025" },
-            { title: "First overall in the world in American Computer Science League", date: "2020 - 2024" },
-            { title: "Top 5 in Citadel Securities Quantitative Challenge", date: "September 2024" },
-            { title: "First overall in the world Math Kangaroo with perfect score", date: "March 2024" },
-            { title: "First Place Hunt Institute Datathon - Collegiate Division", date: "March 2023" },
-            { title: "First place in NC State DiamondHacks Hackathon Competition", date: "April 2023" },
-            { title: "First place in College of Charleston 40th Annual Programming Competition", date: "February 2023" },
-          ].map((honor, i) => (
-            <div key={i} className="honor-item">
-              <span className="honor-bullet">[</span>
-              <span className="honor-title">{honor.title}</span>
-              <span className="honor-comma">,</span>
-              <span className="honor-date">{honor.date}</span>
-              <span className="honor-bullet">]</span>
+        <div className="skills-grid">
+          <div className="skill-category">
+            <h4><span className="keyword">val</span> languages <span className="colon">:</span> <span className="type">list</span></h4>
+            <div className="skill-items">
+              <div className="skill-item"><SiPython /> Python</div>
+              <div className="skill-item"><SiCplusplus /> C/C++</div>
+              <div className="skill-item"><FaJava /> Java</div>
+              <div className="skill-item"><SiCsharp /> C#</div>
+              <div className="skill-item"><SiJavascript /> JavaScript</div>
+              <div className="skill-item"><TbLambda /> SML/NJ</div>
+              <div className="skill-item"><SiOcaml /> OCaml</div>
+              <div className="skill-item"><BiCodeCurly /> Prolog</div>
             </div>
-          ))}
+          </div>
+          <div className="skill-category">
+            <h4><span className="keyword">val</span> frameworks <span className="colon">:</span> <span className="type">list</span></h4>
+            <div className="skill-items">
+              <div className="skill-item"><SiPandas /> Pandas</div>
+              <div className="skill-item"><SiNumpy /> NumPy</div>
+              <div className="skill-item"><TbChartLine /> Matplotlib</div>
+              <div className="skill-item"><SiFlask /> Flask</div>
+            </div>
+          </div>
+          <div className="skill-category">
+            <h4><span className="keyword">val</span> tools <span className="colon">:</span> <span className="type">list</span></h4>
+            <div className="skill-items">
+              <div className="skill-item"><SiLinux /> Linux</div>
+              <div className="skill-item"><SiLatex /> LaTeX</div>
+              <div className="skill-item"><SiGit /> Git</div>
+              <div className="skill-item"><FaGithub /> GitHub</div>
+            </div>
+          </div>
         </div>
+        <div className="section-end"><span className="section-keyword">end</span></div>
       </section>
 
+      {/* CONTACT */}
       <section id="contact" className="section contact-section">
         <div className="section-header">
           <h2><span className="section-keyword">val</span> contact <span className="colon">:</span> <span className="type">unit</span> <span className="section-arrow">-&gt;</span> <span className="type">connection</span></h2>
