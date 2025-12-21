@@ -14,6 +14,13 @@ function ScrollToTop() {
   return null
 }
 
+function scrollToSection(id) {
+  const element = document.getElementById(id)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
 function Header({ isDark, setIsDark }) {
   const location = useLocation()
   const isPersonalPage = location.pathname === '/personal'
@@ -29,15 +36,15 @@ function Header({ isDark, setIsDark }) {
           {isPersonalPage ? (
             <>
               <Link to="/"><span className="nav-lambda">λ</span>home</Link>
-              <a href="#personal"><span className="nav-lambda">λ</span>personal</a>
-              <a href="#insights"><span className="nav-lambda">λ</span>insights</a>
+              <button onClick={() => scrollToSection('personal')} className="nav-btn"><span className="nav-lambda">λ</span>personal</button>
+              <button onClick={() => scrollToSection('insights')} className="nav-btn"><span className="nav-lambda">λ</span>insights</button>
             </>
           ) : (
             <>
-              <a href="#about"><span className="nav-lambda">λ</span>about</a>
-              <a href="#experience"><span className="nav-lambda">λ</span>experience</a>
-              <a href="#projects"><span className="nav-lambda">λ</span>projects</a>
-              <a href="#teaching"><span className="nav-lambda">λ</span>teaching</a>
+              <button onClick={() => scrollToSection('about')} className="nav-btn"><span className="nav-lambda">λ</span>about</button>
+              <button onClick={() => scrollToSection('experience')} className="nav-btn"><span className="nav-lambda">λ</span>experience</button>
+              <button onClick={() => scrollToSection('projects')} className="nav-btn"><span className="nav-lambda">λ</span>projects</button>
+              <button onClick={() => scrollToSection('teaching')} className="nav-btn"><span className="nav-lambda">λ</span>teaching</button>
               <Link to="/personal"><span className="nav-lambda">λ</span>personal</Link>
             </>
           )}
@@ -316,8 +323,8 @@ function MainPage() {
                 <h3>98-317: Hype for Types</h3>
                 <a href="https://hypefortypes.github.io/" target="_blank" rel="noopener noreferrer" className="course-link">
                   <FaExternalLinkAlt />
-        </a>
-      </div>
+                </a>
+              </div>
               <span className="course-role">Instructor</span>
             </div>
             <p className="course-institution">Carnegie Mellon University</p>

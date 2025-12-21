@@ -163,7 +163,8 @@ body {
   gap: 2rem;
 }
 
-.nav-links a {
+.nav-links a,
+.nav-links .nav-btn {
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 0.85rem;
@@ -171,6 +172,11 @@ body {
   letter-spacing: 0.5px;
   transition: color var(--transition);
   position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
 }
 
 .nav-lambda {
@@ -179,7 +185,8 @@ body {
   font-weight: 400;
 }
 
-.nav-links a::after {
+.nav-links a::after,
+.nav-links .nav-btn::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -190,11 +197,13 @@ body {
   transition: width var(--transition);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links .nav-btn:hover {
   color: var(--accent-primary);
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.nav-links .nav-btn:hover::after {
   width: 100%;
 }
 
