@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaTv, FaBook, FaGamepad } from 'react-icons/fa'
 import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
 import { BiCodeBlock } from 'react-icons/bi'
-import { TbLambda, TbBrain } from 'react-icons/tb'
-import { HiCode } from 'react-icons/hi'
+import { TbLambda, TbBrain, TbWriting } from 'react-icons/tb'
+import { HiCode, HiUser, HiPencil } from 'react-icons/hi'
 import './App.css'
 
 function App() {
@@ -46,7 +46,8 @@ function App() {
             <a href="#experience"><span className="nav-lambda">λ</span>experience</a>
             <a href="#projects"><span className="nav-lambda">λ</span>projects</a>
             <a href="#teaching"><span className="nav-lambda">λ</span>teaching</a>
-            <a href="#contact"><span className="nav-lambda">λ</span>contact</a>
+            <a href="#personal"><span className="nav-lambda">λ</span>personal</a>
+            <a href="#insights"><span className="nav-lambda">λ</span>insights</a>
             <button 
               className="theme-toggle" 
               onClick={() => setIsDark(!isDark)}
@@ -76,7 +77,10 @@ function App() {
             </p>
             <div className="hero-links">
               <a href="mailto:samsonrozansky@gmail.com" className="hero-link">
-                <FaEnvelope /> samsonrozansky@gmail.com
+                <FaEnvelope /> samsonrozansky [at] gmail [dot] com
+              </a>
+              <a href="mailto:srozansk@andrew.cmu.edu" className="hero-link">
+                <FaEnvelope /> srozansk [at] andrew [dot] cmu [dot] edu
               </a>
               <a href="https://github.com/samson-rozansky" target="_blank" rel="noopener noreferrer" className="hero-link">
                 <FaGithub /> github.com/samson-rozansky
@@ -371,6 +375,56 @@ function App() {
           </div>
         </section>
 
+        <section id="personal" className="section personal-section">
+          <div className="section-header">
+            <h2><span className="section-keyword">datatype</span> Personal <span className="section-eq">=</span> <span className="type">Me</span> <span className="section-keyword">of</span></h2>
+          </div>
+          <div className="personal-grid">
+            <div className="personal-card favorites-card">
+              <h3><span className="keyword">val</span> favorites <span className="colon">:</span> <span className="type">record</span></h3>
+              <div className="favorites-list">
+                <div className="favorite-item">
+                  <span className="favorite-label">Anime</span>
+                  <span className="favorite-value">Hunter X Hunter</span>
+                </div>
+                <div className="favorite-item">
+                  <span className="favorite-label">Manga</span>
+                  <span className="favorite-value">One Piece</span>
+                </div>
+                <div className="favorite-item">
+                  <span className="favorite-label">Show</span>
+                  <span className="favorite-value">Ancient Aliens</span>
+                </div>
+                <div className="favorite-item">
+                  <span className="favorite-label">Book</span>
+                  <span className="favorite-value">Frankenstein</span>
+                </div>
+              </div>
+            </div>
+            <div className="personal-card hobbies-card">
+              <h3><span className="keyword">val</span> hobbies <span className="colon">:</span> <span className="type">string</span></h3>
+              <p className="hobbies-text">
+                I play a lot of trivia including quizbowl competitions - I even played on TV! 
+                I love reading Hacker News to stay up to date on the latest tech and enjoy 
+                diving into the history of technology and computing.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="insights" className="section insights-section">
+          <div className="section-header">
+            <h2><span className="section-keyword">val</span> insights <span className="colon">:</span> <span className="type">blog list ref</span> <span className="section-eq">=</span></h2>
+          </div>
+          <div className="insights-placeholder">
+            <TbWriting className="insights-icon" />
+            <p className="insights-coming-soon">Insights coming soon...</p>
+            <p className="insights-subtext">
+              <span className="keyword">raise</span> <span className="type">NotYetImplemented</span>
+            </p>
+          </div>
+        </section>
+
         <section id="contact" className="section contact-section">
           <div className="section-header">
             <h2><span className="section-keyword">val</span> contact <span className="colon">:</span> <span className="type">unit</span> <span className="section-arrow">-&gt;</span> <span className="type">connection</span></h2>
@@ -381,7 +435,11 @@ function App() {
           <div className="contact-links">
             <a href="mailto:samsonrozansky@gmail.com" className="contact-link">
               <FaEnvelope />
-              <span>samsonrozansky@gmail.com</span>
+              <span>samsonrozansky [at] gmail [dot] com</span>
+            </a>
+            <a href="mailto:srozansk@andrew.cmu.edu" className="contact-link">
+              <FaEnvelope />
+              <span>srozansk [at] andrew [dot] cmu [dot] edu</span>
             </a>
             <a href="https://github.com/samson-rozansky" target="_blank" rel="noopener noreferrer" className="contact-link">
               <FaGithub />
