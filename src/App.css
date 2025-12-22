@@ -180,7 +180,7 @@ body {
 /* Main nav items - slide left when going to personal page */
 .nav-items-main {
   gap: 1.5rem;
-  transition: gap 0.3s ease;
+  transition: gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-items-main.hidden {
@@ -191,11 +191,11 @@ body {
   display: inline-flex;
   overflow: hidden;
   max-width: 120px;
-  transition: max-width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.3s ease,
-              transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              padding 0.4s ease,
-              margin 0.4s ease,
+  transition: max-width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              margin 0.6s cubic-bezier(0.4, 0, 0.2, 1),
               color var(--transition);
 }
 
@@ -206,38 +206,39 @@ body {
   margin-right: 0;
 }
 
-.nav-items-main.visible .nav-btn:nth-child(1) { transition-delay: 0s; }
-.nav-items-main.visible .nav-btn:nth-child(2) { transition-delay: 0.03s; }
-.nav-items-main.visible .nav-btn:nth-child(3) { transition-delay: 0.06s; }
-.nav-items-main.visible .nav-btn:nth-child(4) { transition-delay: 0.09s; }
-.nav-items-main.visible .nav-btn:nth-child(5) { transition-delay: 0.12s; }
-.nav-items-main.visible .nav-btn:nth-child(6) { transition-delay: 0.15s; }
-.nav-items-main.visible .nav-btn:nth-child(7) { transition-delay: 0.18s; }
-.nav-items-main.visible .nav-btn:nth-child(8) { transition-delay: 0.21s; }
+/* Expanding - wait for personal to collapse (~0.6s), then glide out left to right */
+.nav-items-main.visible .nav-btn:nth-child(1) { transition-delay: 0.5s; }
+.nav-items-main.visible .nav-btn:nth-child(2) { transition-delay: 0.57s; }
+.nav-items-main.visible .nav-btn:nth-child(3) { transition-delay: 0.64s; }
+.nav-items-main.visible .nav-btn:nth-child(4) { transition-delay: 0.71s; }
+.nav-items-main.visible .nav-btn:nth-child(5) { transition-delay: 0.78s; }
+.nav-items-main.visible .nav-btn:nth-child(6) { transition-delay: 0.85s; }
+.nav-items-main.visible .nav-btn:nth-child(7) { transition-delay: 0.92s; }
+.nav-items-main.visible .nav-btn:nth-child(8) { transition-delay: 0.99s; }
 
 .nav-items-main.hidden .nav-btn {
   opacity: 0;
-  transform: translateX(-30px);
+  transform: translateX(-40px);
   max-width: 0;
   overflow: hidden;
   padding: 0;
   margin: 0;
 }
 
-/* Stagger collapsing - rightmost items disappear first (eaten by home) */
+/* Collapsing - rightmost items disappear first, sliding left into home */
 .nav-items-main.hidden .nav-btn:nth-child(8) { transition-delay: 0s; }
-.nav-items-main.hidden .nav-btn:nth-child(7) { transition-delay: 0.04s; }
-.nav-items-main.hidden .nav-btn:nth-child(6) { transition-delay: 0.08s; }
-.nav-items-main.hidden .nav-btn:nth-child(5) { transition-delay: 0.12s; }
-.nav-items-main.hidden .nav-btn:nth-child(4) { transition-delay: 0.16s; }
-.nav-items-main.hidden .nav-btn:nth-child(3) { transition-delay: 0.2s; }
-.nav-items-main.hidden .nav-btn:nth-child(2) { transition-delay: 0.24s; }
-.nav-items-main.hidden .nav-btn:nth-child(1) { transition-delay: 0.28s; }
+.nav-items-main.hidden .nav-btn:nth-child(7) { transition-delay: 0.07s; }
+.nav-items-main.hidden .nav-btn:nth-child(6) { transition-delay: 0.14s; }
+.nav-items-main.hidden .nav-btn:nth-child(5) { transition-delay: 0.21s; }
+.nav-items-main.hidden .nav-btn:nth-child(4) { transition-delay: 0.28s; }
+.nav-items-main.hidden .nav-btn:nth-child(3) { transition-delay: 0.35s; }
+.nav-items-main.hidden .nav-btn:nth-child(2) { transition-delay: 0.42s; }
+.nav-items-main.hidden .nav-btn:nth-child(1) { transition-delay: 0.49s; }
 
 /* Personal nav items - appear from right when on personal page */
 .nav-items-personal {
   gap: 1.5rem;
-  transition: gap 0.3s ease;
+  transition: gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-items-personal.hidden {
@@ -248,11 +249,11 @@ body {
   display: inline-flex;
   overflow: hidden;
   max-width: 120px;
-  transition: max-width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.3s ease,
-              transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              padding 0.4s ease,
-              margin 0.4s ease,
+  transition: max-width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              margin 0.6s cubic-bezier(0.4, 0, 0.2, 1),
               color var(--transition);
 }
 
@@ -262,22 +263,24 @@ body {
   max-width: 120px;
 }
 
-.nav-items-personal.visible .nav-btn:nth-child(1) { transition-delay: 0.35s; }
-.nav-items-personal.visible .nav-btn:nth-child(2) { transition-delay: 0.4s; }
-.nav-items-personal.visible .nav-btn:nth-child(3) { transition-delay: 0.45s; }
+/* Expanding - wait for main nav to collapse (~1s), then expand from left to right */
+.nav-items-personal.visible .nav-btn:nth-child(1) { transition-delay: 0.8s; }
+.nav-items-personal.visible .nav-btn:nth-child(2) { transition-delay: 0.9s; }
+.nav-items-personal.visible .nav-btn:nth-child(3) { transition-delay: 1.0s; }
 
 .nav-items-personal.hidden .nav-btn {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(40px);
   max-width: 0;
   overflow: hidden;
   padding: 0;
   margin: 0;
 }
 
+/* Collapsing - rightmost items disappear first, sliding right */
 .nav-items-personal.hidden .nav-btn:nth-child(3) { transition-delay: 0s; }
-.nav-items-personal.hidden .nav-btn:nth-child(2) { transition-delay: 0.05s; }
-.nav-items-personal.hidden .nav-btn:nth-child(1) { transition-delay: 0.1s; }
+.nav-items-personal.hidden .nav-btn:nth-child(2) { transition-delay: 0.08s; }
+.nav-items-personal.hidden .nav-btn:nth-child(1) { transition-delay: 0.16s; }
 
 .nav-links a,
 .nav-links .nav-btn {
