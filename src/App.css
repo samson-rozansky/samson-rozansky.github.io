@@ -163,9 +163,10 @@ body {
   gap: 1.5rem;
 }
 
-/* Nav home button */
+/* Nav home button - always visible */
 .nav-home {
   flex-shrink: 0;
+  z-index: 10;
 }
 
 /* Nav item groups for animation */
@@ -173,112 +174,107 @@ body {
 .nav-items-personal {
   display: flex;
   align-items: center;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
 }
 
-/* Main nav - glides LEFT when hidden (into home) */
+/* Main nav items - slide left when going to personal page */
 .nav-items-main {
   gap: 1.5rem;
+  transition: gap 0.3s ease;
 }
-
-.nav-items-main .nav-btn {
-  white-space: nowrap;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.4s ease,
-              max-width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              padding 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              margin 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.nav-items-main.visible {
-  gap: 1.5rem;
-}
-
-.nav-items-main.visible .nav-btn {
-  opacity: 1;
-  transform: translateX(0);
-  max-width: 150px;
-}
-
-/* Stagger expanding - items glide out from left to right */
-.nav-items-main.visible .nav-btn:nth-child(1) { transition-delay: 0.05s; }
-.nav-items-main.visible .nav-btn:nth-child(2) { transition-delay: 0.1s; }
-.nav-items-main.visible .nav-btn:nth-child(3) { transition-delay: 0.15s; }
-.nav-items-main.visible .nav-btn:nth-child(4) { transition-delay: 0.2s; }
-.nav-items-main.visible .nav-btn:nth-child(5) { transition-delay: 0.25s; }
-.nav-items-main.visible .nav-btn:nth-child(6) { transition-delay: 0.3s; }
-.nav-items-main.visible .nav-btn:nth-child(7) { transition-delay: 0.35s; }
-.nav-items-main.visible .nav-btn:nth-child(8) { transition-delay: 0.4s; }
 
 .nav-items-main.hidden {
   gap: 0;
 }
 
+.nav-items-main .nav-btn {
+  display: inline-flex;
+  overflow: hidden;
+  max-width: 120px;
+  transition: max-width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.3s ease,
+              transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              padding 0.4s ease,
+              margin 0.4s ease,
+              color var(--transition);
+}
+
+.nav-items-main.visible .nav-btn {
+  opacity: 1;
+  transform: translateX(0);
+  max-width: 120px;
+  margin-right: 0;
+}
+
+.nav-items-main.visible .nav-btn:nth-child(1) { transition-delay: 0s; }
+.nav-items-main.visible .nav-btn:nth-child(2) { transition-delay: 0.03s; }
+.nav-items-main.visible .nav-btn:nth-child(3) { transition-delay: 0.06s; }
+.nav-items-main.visible .nav-btn:nth-child(4) { transition-delay: 0.09s; }
+.nav-items-main.visible .nav-btn:nth-child(5) { transition-delay: 0.12s; }
+.nav-items-main.visible .nav-btn:nth-child(6) { transition-delay: 0.15s; }
+.nav-items-main.visible .nav-btn:nth-child(7) { transition-delay: 0.18s; }
+.nav-items-main.visible .nav-btn:nth-child(8) { transition-delay: 0.21s; }
+
 .nav-items-main.hidden .nav-btn {
   opacity: 0;
   transform: translateX(-30px);
   max-width: 0;
-  padding-left: 0;
-  padding-right: 0;
-  margin: 0;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
-/* Stagger collapsing - items glide into home from right to left */
+/* Stagger collapsing - rightmost items disappear first (eaten by home) */
 .nav-items-main.hidden .nav-btn:nth-child(8) { transition-delay: 0s; }
-.nav-items-main.hidden .nav-btn:nth-child(7) { transition-delay: 0.03s; }
-.nav-items-main.hidden .nav-btn:nth-child(6) { transition-delay: 0.06s; }
-.nav-items-main.hidden .nav-btn:nth-child(5) { transition-delay: 0.09s; }
-.nav-items-main.hidden .nav-btn:nth-child(4) { transition-delay: 0.12s; }
-.nav-items-main.hidden .nav-btn:nth-child(3) { transition-delay: 0.15s; }
-.nav-items-main.hidden .nav-btn:nth-child(2) { transition-delay: 0.18s; }
-.nav-items-main.hidden .nav-btn:nth-child(1) { transition-delay: 0.21s; }
+.nav-items-main.hidden .nav-btn:nth-child(7) { transition-delay: 0.04s; }
+.nav-items-main.hidden .nav-btn:nth-child(6) { transition-delay: 0.08s; }
+.nav-items-main.hidden .nav-btn:nth-child(5) { transition-delay: 0.12s; }
+.nav-items-main.hidden .nav-btn:nth-child(4) { transition-delay: 0.16s; }
+.nav-items-main.hidden .nav-btn:nth-child(3) { transition-delay: 0.2s; }
+.nav-items-main.hidden .nav-btn:nth-child(2) { transition-delay: 0.24s; }
+.nav-items-main.hidden .nav-btn:nth-child(1) { transition-delay: 0.28s; }
 
-/* Personal nav - glides RIGHT when expanding (out of home) */
+/* Personal nav items - appear from right when on personal page */
 .nav-items-personal {
   gap: 1.5rem;
+  transition: gap 0.3s ease;
 }
-
-.nav-items-personal .nav-btn {
-  white-space: nowrap;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.4s ease,
-              max-width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              padding 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              margin 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.nav-items-personal.visible {
-  gap: 1.5rem;
-}
-
-.nav-items-personal.visible .nav-btn {
-  opacity: 1;
-  transform: translateX(0);
-  max-width: 150px;
-}
-
-/* Stagger expanding - personal items glide out left to right */
-.nav-items-personal.visible .nav-btn:nth-child(1) { transition-delay: 0.3s; }
-.nav-items-personal.visible .nav-btn:nth-child(2) { transition-delay: 0.4s; }
-.nav-items-personal.visible .nav-btn:nth-child(3) { transition-delay: 0.5s; }
 
 .nav-items-personal.hidden {
   gap: 0;
 }
 
-.nav-items-personal.hidden .nav-btn {
-  opacity: 0;
-  transform: translateX(-30px);
-  max-width: 0;
-  padding-left: 0;
-  padding-right: 0;
-  margin: 0;
+.nav-items-personal .nav-btn {
+  display: inline-flex;
   overflow: hidden;
+  max-width: 120px;
+  transition: max-width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.3s ease,
+              transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              padding 0.4s ease,
+              margin 0.4s ease,
+              color var(--transition);
 }
 
-/* Stagger collapsing - personal items glide back right to left */
+.nav-items-personal.visible .nav-btn {
+  opacity: 1;
+  transform: translateX(0);
+  max-width: 120px;
+}
+
+.nav-items-personal.visible .nav-btn:nth-child(1) { transition-delay: 0.35s; }
+.nav-items-personal.visible .nav-btn:nth-child(2) { transition-delay: 0.4s; }
+.nav-items-personal.visible .nav-btn:nth-child(3) { transition-delay: 0.45s; }
+
+.nav-items-personal.hidden .nav-btn {
+  opacity: 0;
+  transform: translateX(30px);
+  max-width: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
 .nav-items-personal.hidden .nav-btn:nth-child(3) { transition-delay: 0s; }
 .nav-items-personal.hidden .nav-btn:nth-child(2) { transition-delay: 0.05s; }
 .nav-items-personal.hidden .nav-btn:nth-child(1) { transition-delay: 0.1s; }
@@ -290,13 +286,14 @@ body {
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.5px;
-  transition: color var(--transition);
+  transition: color var(--transition), transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
   position: relative;
   background: none;
   border: none;
   cursor: pointer;
   font-family: inherit;
   padding: 0;
+  white-space: nowrap;
 }
 
 .nav-lambda {
