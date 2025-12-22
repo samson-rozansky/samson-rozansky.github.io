@@ -163,55 +163,83 @@ body {
   gap: 1.5rem;
 }
 
-.nav-group {
+/* Nav item groups for animation */
+.nav-items-main,
+.nav-items-personal,
+.nav-personal-link {
   display: flex;
   align-items: center;
   gap: 1.5rem;
   overflow: hidden;
+  transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.3s ease,
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.nav-group.main-nav .nav-collapsible {
-  transition: all 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
-  transform-origin: left center;
+.nav-items-main {
+  max-width: 800px;
 }
 
-.nav-group.main-nav.collapsed .nav-collapsible {
+.nav-items-main.visible {
+  max-width: 800px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-items-main.hidden {
   max-width: 0;
   opacity: 0;
-  transform: scaleX(0);
-  margin: 0;
+  transform: translateX(-20px);
+  gap: 0;
+}
+
+.nav-items-main.hidden .nav-btn {
   padding: 0;
+  margin: 0;
 }
 
-.nav-group.personal-nav {
-  transition: all 0.3s ease;
+.nav-items-personal {
+  max-width: 300px;
 }
 
-.nav-group.personal-nav .nav-expandable {
-  transition: all 0.3s ease, opacity 0.2s ease 0.1s, transform 0.3s ease;
-  transform-origin: left center;
+.nav-items-personal.visible {
+  max-width: 300px;
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.nav-group.personal-nav.collapsed {
+.nav-items-personal.hidden {
   max-width: 0;
   opacity: 0;
+  transform: translateX(-20px);
+  gap: 0;
 }
 
-.nav-group.personal-nav.collapsed .nav-expandable {
+.nav-items-personal.hidden .nav-btn {
+  padding: 0;
+  margin: 0;
+}
+
+.nav-personal-link {
+  max-width: 150px;
+}
+
+.nav-personal-link.visible {
+  max-width: 150px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-personal-link.hidden {
   max-width: 0;
   opacity: 0;
-  transform: scaleX(0);
+  transform: translateX(20px);
+  gap: 0;
 }
 
-.nav-divider {
-  width: 1px;
-  height: 20px;
-  background: var(--border-color);
-  transition: opacity 0.3s ease;
-}
-
-.personal-link {
-  transition: all 0.3s ease;
+.nav-personal-link.hidden .nav-btn {
+  padding: 0;
+  margin: 0;
 }
 
 .nav-links a,

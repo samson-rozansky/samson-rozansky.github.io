@@ -27,76 +27,52 @@ function Header({ isDark, setIsDark }) {
   const location = useLocation()
   const navigate = useNavigate()
   const isPersonalPage = location.pathname === '/personal'
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [showPersonalNav, setShowPersonalNav] = useState(isPersonalPage)
 
-  useEffect(() => {
-    if (isPersonalPage) {
-      setIsAnimating(true)
-      const timer = setTimeout(() => {
-        setShowPersonalNav(true)
-        setIsAnimating(false)
-      }, 300)
-      return () => clearTimeout(timer)
-    } else {
-      setIsAnimating(true)
-      setShowPersonalNav(false)
-      const timer = setTimeout(() => {
-        setIsAnimating(false)
-      }, 300)
-      return () => clearTimeout(timer)
-    }
-  }, [isPersonalPage])
-
-  const handlePersonalClick = () => {
-    setIsAnimating(true)
-    setTimeout(() => {
-      navigate('/personal')
-    }, 150)
-  }
-
-  const handleHomeClick = () => {
-    setIsAnimating(true)
-    setTimeout(() => {
-      navigate('/')
-    }, 150)
+  const handleNavigation = (path) => {
+    navigate(path)
   }
 
   return (
     <header className="header">
       <nav className="nav">
-        <Link to="/" className="logo" onClick={(e) => { if (isPersonalPage) { e.preventDefault(); handleHomeClick(); }}}>
+        <Link to="/" className="logo">
           <TbLambda className="lambda-icon" />
           <span className="logo-text">SR</span>
         </Link>
         <div className="nav-links">
-          <div className={`nav-group main-nav ${isPersonalPage ? 'collapsed' : ''} ${isAnimating ? 'animating' : ''}`}>
-            <button onClick={() => scrollToSection('about')} className="nav-btn"><span className="nav-lambda">λ</span>home</button>
-            <button onClick={() => scrollToSection('education')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>education</button>
-            <button onClick={() => scrollToSection('experience')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>experience</button>
-            <button onClick={() => scrollToSection('projects')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>projects</button>
-            <button onClick={() => scrollToSection('teaching')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>teaching</button>
-            <button onClick={() => scrollToSection('skills')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>skills</button>
-            <button onClick={() => scrollToSection('contact')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>contact</button>
-          </div>
-          
-          <div className="nav-divider"></div>
-          
-          <div className={`nav-group personal-nav ${!isPersonalPage ? 'collapsed' : ''} ${isAnimating ? 'animating' : ''}`}>
-            {isPersonalPage && (
-              <>
-                <button onClick={handleHomeClick} className="nav-btn"><span className="nav-lambda">λ</span>home</button>
-                <button onClick={() => scrollToSection('interests')} className="nav-btn nav-expandable"><span className="nav-lambda">λ</span>interests</button>
-                <button onClick={() => scrollToSection('insights')} className="nav-btn nav-expandable"><span className="nav-lambda">λ</span>insights</button>
-              </>
-            )}
-          </div>
-          
-          {!isPersonalPage && (
-            <button onClick={handlePersonalClick} className="nav-btn personal-link">
-              <span className="nav-lambda">λ</span>personal
+          {/* Home button - always visible */}
+          {isPersonalPage ? (
+            <button onClick={() => handleNavigation('/')} className="nav-btn">
+              <span className="nav-lambda">λ</span>home
+            </button>
+          ) : (
+            <button onClick={() => scrollToSection('about')} className="nav-btn">
+              <span className="nav-lambda">λ</span>home
             </button>
           )}
+          
+          {/* Main nav items - animate based on page */}
+          <div className={`nav-items-main ${isPersonalPage ? 'hidden' : 'visible'}`}>
+            <button onClick={() => scrollToSection('education')} className="nav-btn"><span className="nav-lambda">λ</span>education</button>
+            <button onClick={() => scrollToSection('experience')} className="nav-btn"><span className="nav-lambda">λ</span>experience</button>
+            <button onClick={() => scrollToSection('projects')} className="nav-btn"><span className="nav-lambda">λ</span>projects</button>
+            <button onClick={() => scrollToSection('teaching')} className="nav-btn"><span className="nav-lambda">λ</span>teaching</button>
+            <button onClick={() => scrollToSection('skills')} className="nav-btn"><span className="nav-lambda">λ</span>skills</button>
+            <button onClick={() => scrollToSection('contact')} className="nav-btn"><span className="nav-lambda">λ</span>contact</button>
+          </div>
+
+          {/* Personal nav items - animate based on page */}
+          <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'}`}>
+            <button onClick={() => scrollToSection('interests')} className="nav-btn"><span className="nav-lambda">λ</span>interests</button>
+            <button onClick={() => scrollToSection('insights')} className="nav-btn"><span className="nav-lambda">λ</span>insights</button>
+          </div>
+
+          {/* Personal link - only on main page */}
+          <div className={`nav-personal-link ${isPersonalPage ? 'hidden' : 'visible'}`}>
+            <button onClick={() => handleNavigation('/personal')} className="nav-btn">
+              <span className="nav-lambda">λ</span>personal
+            </button>
+          </div>
           
           <button 
             className="theme-toggle" 
@@ -366,8 +342,8 @@ function MainPage() {
                 <h3>98-317: Hype for Types</h3>
                 <a href="https://hypefortypes.github.io/" target="_blank" rel="noopener noreferrer" className="course-link">
                   <FaExternalLinkAlt />
-        </a>
-      </div>
+                </a>
+              </div>
               <span className="course-role">Instructor</span>
             </div>
             <p className="course-institution">Carnegie Mellon University</p>
@@ -541,6 +517,12 @@ function PersonalPage() {
           </p>
         </div>
       </section>
+
+      <div className="back-home">
+        <Link to="/" className="back-link">
+          <span className="keyword">fun</span> goBack () <span className="section-eq">=</span> Home
+        </Link>
+      </div>
     </main>
   )
 }
