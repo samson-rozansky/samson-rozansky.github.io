@@ -11,7 +11,7 @@ import './App.css'
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [pathname])
   return null
 }
@@ -26,10 +26,20 @@ function scrollToSection(id) {
 function Header({ isDark, setIsDark }) {
   const location = useLocation()
   const navigate = useNavigate()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [animationsEnabled, setAnimationsEnabled] = useState(false)
   const isPersonalPage = location.pathname === '/personal'
 
   const handleNavigation = (path) => {
+    // Enable animations only when user clicks navigation
+    setAnimationsEnabled(true)
     navigate(path)
+    setMobileMenuOpen(false)
+  }
+
+  const handleScrollTo = (id) => {
+    scrollToSection(id)
+    setMobileMenuOpen(false)
   }
 
   return (
@@ -39,29 +49,48 @@ function Header({ isDark, setIsDark }) {
           <TbLambda className="lambda-icon" />
           <span className="logo-text">SR</span>
         </Link>
-        <div className="nav-links">
+        
+        {/* Mobile menu button */}
+        <button 
+          className="mobile-menu-btn"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}></span>
+        </button>
+
+        {/* Mobile overlay */}
+        {mobileMenuOpen && <div className="mobile-overlay" onClick={() => setMobileMenuOpen(false)} />}
+
+        <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           {/* Home button - always visible */}
-          <button onClick={() => isPersonalPage ? handleNavigation('/') : scrollToSection('about')} className="nav-btn nav-home">
+          <button onClick={() => isPersonalPage ? handleNavigation('/') : handleScrollTo('about')} className="nav-btn nav-home">
             <span className="nav-lambda">λ</span>home
           </button>
           
-          {/* Main nav items - glide left when hidden */}
-          <div className={`nav-items-main ${isPersonalPage ? 'hidden' : 'visible'}`}>
-            <button onClick={() => scrollToSection('about')} className="nav-btn"><span className="nav-lambda">λ</span>about</button>
-            <button onClick={() => scrollToSection('education')} className="nav-btn"><span className="nav-lambda">λ</span>education</button>
-            <button onClick={() => scrollToSection('experience')} className="nav-btn"><span className="nav-lambda">λ</span>experience</button>
-            <button onClick={() => scrollToSection('projects')} className="nav-btn"><span className="nav-lambda">λ</span>projects</button>
-            <button onClick={() => scrollToSection('teaching')} className="nav-btn"><span className="nav-lambda">λ</span>teaching</button>
-            <button onClick={() => scrollToSection('skills')} className="nav-btn"><span className="nav-lambda">λ</span>skills</button>
-            <button onClick={() => scrollToSection('contact')} className="nav-btn"><span className="nav-lambda">λ</span>contact</button>
-            <button onClick={() => handleNavigation('/personal')} className="nav-btn"><span className="nav-lambda">λ</span>personal</button>
+          {/* Main nav items - collapse from right to left into personal */}
+          <div className={`nav-items-main ${isPersonalPage ? 'hidden' : 'visible'} ${animationsEnabled ? '' : 'no-animation'}`}>
+            <button onClick={() => handleScrollTo('about')} className="nav-btn"><span className="nav-lambda">λ</span>about</button>
+            <button onClick={() => handleScrollTo('education')} className="nav-btn"><span className="nav-lambda">λ</span>education</button>
+            <button onClick={() => handleScrollTo('experience')} className="nav-btn"><span className="nav-lambda">λ</span>experience</button>
+            <button onClick={() => handleScrollTo('projects')} className="nav-btn"><span className="nav-lambda">λ</span>projects</button>
+            <button onClick={() => handleScrollTo('teaching')} className="nav-btn"><span className="nav-lambda">λ</span>teaching</button>
+            <button onClick={() => handleScrollTo('skills')} className="nav-btn"><span className="nav-lambda">λ</span>skills</button>
+            <button onClick={() => handleScrollTo('contact')} className="nav-btn"><span className="nav-lambda">λ</span>contact</button>
           </div>
 
-          {/* Personal nav items - glide right when expanding */}
-          <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'}`}>
-            <button onClick={() => scrollToSection('interests')} className="nav-btn"><span className="nav-lambda">λ</span>personal</button>
-            <button onClick={() => scrollToSection('interests')} className="nav-btn"><span className="nav-lambda">λ</span>interests</button>
-            <button onClick={() => scrollToSection('insights')} className="nav-btn"><span className="nav-lambda">λ</span>insights</button>
+          {/* Personal button - always visible, acts as the pivot point */}
+          <button 
+            onClick={() => isPersonalPage ? handleNavigation('/') : handleNavigation('/personal')} 
+            className="nav-btn nav-personal"
+          >
+            <span className="nav-lambda">λ</span>personal
+          </button>
+
+          {/* Personal nav items - expand from left to right out of personal */}
+          <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'} ${animationsEnabled ? '' : 'no-animation'}`}>
+            <button onClick={() => handleScrollTo('interests')} className="nav-btn"><span className="nav-lambda">λ</span>interests</button>
+            <button onClick={() => handleScrollTo('insights')} className="nav-btn"><span className="nav-lambda">λ</span>insights</button>
           </div>
           
           <button 
@@ -447,6 +476,12 @@ function MainPage() {
           </a>
         </div>
       </section>
+
+      <div className="go-personal">
+        <Link to="/personal" className="go-personal-link">
+          <span className="keyword">fun</span> explore () <span className="section-eq">=</span> Personal
+        </Link>
+      </div>
     </main>
   )
 }
@@ -530,6 +565,17 @@ function Footer() {
   )
 }
 
+function AnimatedRoutes() {
+  const location = useLocation()
+  
+  return (
+    <Routes location={location} key={location.pathname}>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/personal" element={<PersonalPage />} />
+    </Routes>
+  )
+}
+
 function App() {
   const [isDark, setIsDark] = useState(true)
 
@@ -543,10 +589,7 @@ function App() {
         <div className="background-pattern"></div>
         <ScrollToTop />
         <Header isDark={isDark} setIsDark={setIsDark} />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/personal" element={<PersonalPage />} />
-        </Routes>
+        <AnimatedRoutes />
         <Footer />
       </div>
     </HashRouter>

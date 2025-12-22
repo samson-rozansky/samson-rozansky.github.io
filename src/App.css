@@ -160,128 +160,270 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0;
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  position: relative;
+  transition: background 0.2s;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  left: 0;
+  transition: transform 0.3s, top 0.3s;
+}
+
+.hamburger::before { top: -7px; }
+.hamburger::after { top: 7px; }
+
+.hamburger.open {
+  background: transparent;
+}
+
+.hamburger.open::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.hamburger.open::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  display: none;
 }
 
 /* Nav home button - always visible */
 .nav-home {
   flex-shrink: 0;
-  z-index: 10;
+  margin-right: 1.5rem;
 }
 
-/* Nav item groups for animation */
+/* Nav personal button - always visible, acts as pivot between sections */
+.nav-personal {
+  flex-shrink: 0;
+  margin-left: 1rem;
+  margin-right: 1.5rem;
+  position: relative;
+}
+
+/* Vertical divider before personal button */
+.nav-personal::before {
+  content: '';
+  position: absolute;
+  left: -0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1.5rem;
+  width: 3px;
+  background-color: var(--text-muted);
+  opacity: 0.4;
+  border-radius: 1px;
+}
+
+/* Nav item containers */
 .nav-items-main,
 .nav-items-personal {
   display: flex;
   align-items: center;
-  position: relative;
 }
 
-/* Main nav items - slide left when going to personal page */
-.nav-items-main {
-  gap: 1.5rem;
-  transition: gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+/* ===== ACCORDION ANIMATIONS ===== */
+@keyframes collapseItem {
+  from {
+    max-width: 150px;
+    opacity: 1;
+    margin-right: 1.5rem;
+  }
+  to {
+    max-width: 0;
+    opacity: 0;
+    margin-right: 0;
+  }
 }
 
-.nav-items-main.hidden {
-  gap: 0;
+@keyframes expandItem {
+  from {
+    max-width: 0;
+    opacity: 0;
+    margin-right: 0;
+  }
+  to {
+    max-width: 150px;
+    opacity: 1;
+    margin-right: 1.5rem;
+  }
 }
 
+@keyframes expandItemLast {
+  from {
+    max-width: 0;
+    opacity: 0;
+    margin-right: 0;
+  }
+  to {
+    max-width: 150px;
+    opacity: 1;
+    margin-right: 1.5rem;
+  }
+}
+
+/* ===== MAIN NAV ITEMS ===== */
 .nav-items-main .nav-btn {
   display: inline-flex;
   overflow: hidden;
-  max-width: 120px;
-  transition: max-width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              margin 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              color var(--transition);
+  white-space: nowrap;
+  /* Only color transition for hover - no delay! */
+  transition: color 0.15s ease;
 }
 
+.nav-items-main .nav-btn:last-child {
+  margin-right: 1.5rem;
+}
+
+/* When visible - items are expanded */
 .nav-items-main.visible .nav-btn {
+  max-width: 150px;
   opacity: 1;
-  transform: translateX(0);
-  max-width: 120px;
-  margin-right: 0;
+  margin-right: 1.5rem;
+  pointer-events: auto;
+  animation: expandItem 0.3s ease both;
+}
+.nav-items-main.visible .nav-btn:last-child { 
+  margin-right: 1.5rem;
+  animation: expandItemLast 0.3s ease both;
 }
 
-/* Expanding - wait for personal to collapse (~0.6s), then glide out left to right */
-.nav-items-main.visible .nav-btn:nth-child(1) { transition-delay: 0.5s; }
-.nav-items-main.visible .nav-btn:nth-child(2) { transition-delay: 0.57s; }
-.nav-items-main.visible .nav-btn:nth-child(3) { transition-delay: 0.64s; }
-.nav-items-main.visible .nav-btn:nth-child(4) { transition-delay: 0.71s; }
-.nav-items-main.visible .nav-btn:nth-child(5) { transition-delay: 0.78s; }
-.nav-items-main.visible .nav-btn:nth-child(6) { transition-delay: 0.85s; }
-.nav-items-main.visible .nav-btn:nth-child(7) { transition-delay: 0.92s; }
-.nav-items-main.visible .nav-btn:nth-child(8) { transition-delay: 0.99s; }
+/* Stagger expand LEFT to RIGHT - synced to finish with personal collapse at ~1s */
+.nav-items-main.visible .nav-btn:nth-child(1) { animation-delay: 0.1s; }
+.nav-items-main.visible .nav-btn:nth-child(2) { animation-delay: 0.2s; }
+.nav-items-main.visible .nav-btn:nth-child(3) { animation-delay: 0.3s; }
+.nav-items-main.visible .nav-btn:nth-child(4) { animation-delay: 0.4s; }
+.nav-items-main.visible .nav-btn:nth-child(5) { animation-delay: 0.5s; }
+.nav-items-main.visible .nav-btn:nth-child(6) { animation-delay: 0.6s; }
+.nav-items-main.visible .nav-btn:nth-child(7) { animation-delay: 0.7s; }
 
+/* When hidden - collapse RIGHT to LEFT (contact first → about last) */
 .nav-items-main.hidden .nav-btn {
-  opacity: 0;
-  transform: translateX(-40px);
   max-width: 0;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
+  opacity: 0;
+  margin-right: 0;
+  pointer-events: none;
+  animation: collapseItem 0.3s ease both;
 }
 
-/* Collapsing - rightmost items disappear first, sliding left into home */
-.nav-items-main.hidden .nav-btn:nth-child(8) { transition-delay: 0s; }
-.nav-items-main.hidden .nav-btn:nth-child(7) { transition-delay: 0.07s; }
-.nav-items-main.hidden .nav-btn:nth-child(6) { transition-delay: 0.14s; }
-.nav-items-main.hidden .nav-btn:nth-child(5) { transition-delay: 0.21s; }
-.nav-items-main.hidden .nav-btn:nth-child(4) { transition-delay: 0.28s; }
-.nav-items-main.hidden .nav-btn:nth-child(3) { transition-delay: 0.35s; }
-.nav-items-main.hidden .nav-btn:nth-child(2) { transition-delay: 0.42s; }
-.nav-items-main.hidden .nav-btn:nth-child(1) { transition-delay: 0.49s; }
+/* Stagger collapse - finishes at ~1s */
+.nav-items-main.hidden .nav-btn:nth-child(7) { animation-delay: 0s; }
+.nav-items-main.hidden .nav-btn:nth-child(6) { animation-delay: 0.12s; }
+.nav-items-main.hidden .nav-btn:nth-child(5) { animation-delay: 0.24s; }
+.nav-items-main.hidden .nav-btn:nth-child(4) { animation-delay: 0.36s; }
+.nav-items-main.hidden .nav-btn:nth-child(3) { animation-delay: 0.48s; }
+.nav-items-main.hidden .nav-btn:nth-child(2) { animation-delay: 0.60s; }
+.nav-items-main.hidden .nav-btn:nth-child(1) { animation-delay: 0.72s; }
 
-/* Personal nav items - appear from right when on personal page */
-.nav-items-personal {
-  gap: 1.5rem;
-  transition: gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.nav-items-personal.hidden {
-  gap: 0;
-}
-
+/* ===== PERSONAL NAV ITEMS ===== */
 .nav-items-personal .nav-btn {
   display: inline-flex;
   overflow: hidden;
-  max-width: 120px;
-  transition: max-width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              padding 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              margin 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              color var(--transition);
+  white-space: nowrap;
+  /* Only color transition for hover - no delay! */
+  transition: color 0.15s ease;
 }
 
+.nav-items-personal .nav-btn:last-child {
+  margin-right: 0;
+}
+
+/* When visible - expand from LEFT to RIGHT */
 .nav-items-personal.visible .nav-btn {
+  max-width: 150px;
   opacity: 1;
-  transform: translateX(0);
-  max-width: 120px;
+  margin-right: 1.5rem;
+  pointer-events: auto;
+  animation: expandItem 0.3s ease both;
+}
+.nav-items-personal.visible .nav-btn:last-child { 
+  margin-right: 0;
+  animation: expandItemLast 0.3s ease both;
 }
 
-/* Expanding - wait for main nav to collapse (~1s), then expand from left to right */
-.nav-items-personal.visible .nav-btn:nth-child(1) { transition-delay: 0.8s; }
-.nav-items-personal.visible .nav-btn:nth-child(2) { transition-delay: 0.9s; }
-.nav-items-personal.visible .nav-btn:nth-child(3) { transition-delay: 1.0s; }
+/* Expand synced with main collapse - both finish at ~1s */
+.nav-items-personal.visible .nav-btn:nth-child(1) { animation-delay: 0.45s; }
+.nav-items-personal.visible .nav-btn:nth-child(2) { animation-delay: 0.72s; }
 
+/* When hidden - collapse back into personal */
 .nav-items-personal.hidden .nav-btn {
-  opacity: 0;
-  transform: translateX(40px);
   max-width: 0;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
+  opacity: 0;
+  margin-right: 0;
+  pointer-events: none;
+  animation: collapseItem 0.3s ease both;
 }
 
-/* Collapsing - rightmost items disappear first, sliding right */
-.nav-items-personal.hidden .nav-btn:nth-child(3) { transition-delay: 0s; }
-.nav-items-personal.hidden .nav-btn:nth-child(2) { transition-delay: 0.08s; }
-.nav-items-personal.hidden .nav-btn:nth-child(1) { transition-delay: 0.16s; }
+/* Collapse slightly faster than main expand - finishes at ~0.85s while main finishes at ~1s */
+.nav-items-personal.hidden .nav-btn:nth-child(2) { animation-delay: 0.25s; }
+.nav-items-personal.hidden .nav-btn:nth-child(1) { animation-delay: 0.55s; }
 
+/* ===== NO ANIMATION ON INITIAL LOAD ===== */
+.nav-items-main.no-animation .nav-btn,
+.nav-items-personal.no-animation .nav-btn {
+  animation: none !important;
+}
+
+/* Set initial state without animation */
+.nav-items-main.no-animation.visible .nav-btn {
+  max-width: 150px;
+  opacity: 1;
+  margin-right: 1.5rem;
+}
+.nav-items-main.no-animation.visible .nav-btn:last-child {
+  margin-right: 1.5rem;
+}
+
+.nav-items-main.no-animation.hidden .nav-btn {
+  max-width: 0;
+  opacity: 0;
+  margin-right: 0;
+}
+
+.nav-items-personal.no-animation.visible .nav-btn {
+  max-width: 150px;
+  opacity: 1;
+  margin-right: 1.5rem;
+}
+.nav-items-personal.no-animation.visible .nav-btn:last-child {
+  margin-right: 0;
+}
+
+.nav-items-personal.no-animation.hidden .nav-btn {
+  max-width: 0;
+  opacity: 0;
+  margin-right: 0;
+}
+
+/* ===== BASE BUTTON STYLES ===== */
 .nav-links a,
 .nav-links .nav-btn {
   color: var(--text-secondary);
@@ -289,14 +431,18 @@ body {
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.5px;
-  transition: color var(--transition), transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
   position: relative;
   background: none;
   border: none;
   cursor: pointer;
   font-family: inherit;
-  padding: 0;
+  padding: 0.25rem 0;
   white-space: nowrap;
+}
+
+/* Hover effect - instant, no delay */
+.nav-links .nav-btn {
+  transition: color 0.15s ease;
 }
 
 .nav-lambda {
@@ -305,16 +451,17 @@ body {
   font-weight: 400;
 }
 
+/* Underline effect */
 .nav-links a::after,
 .nav-links .nav-btn::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
   background: var(--accent-primary);
-  transition: width var(--transition);
+  transition: width 0.2s ease;
 }
 
 .nav-links a:hover,
@@ -339,6 +486,7 @@ body {
   justify-content: center;
   font-size: 1.1rem;
   transition: all var(--transition);
+  margin-left: 0.75rem;
 }
 
 .theme-toggle:hover {
@@ -347,11 +495,24 @@ body {
   box-shadow: 0 0 12px var(--accent-glow);
 }
 
+/* Page transition animation */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Main Content */
 main {
   position: relative;
   z-index: 1;
   padding-top: 80px;
+  animation: pageEnter 0.5s ease-out;
 }
 
 /* Hero Section */
@@ -1131,6 +1292,34 @@ main {
 }
 
 /* Back Home Link */
+/* Go to Personal Button (on home page) */
+.go-personal {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.go-personal-link {
+  display: inline-block;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  transition: all var(--transition);
+}
+
+.go-personal-link:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+/* Back Home Button (on personal page) */
 .back-home {
   max-width: 1000px;
   margin: 3rem auto;
@@ -1227,17 +1416,86 @@ main {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .nav {
-    padding: 1rem;
+@media (max-width: 900px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
   }
 
   .nav-links {
-    gap: 1rem;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-secondary);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 2rem 2rem;
+    gap: 0.5rem;
+    transition: right 0.3s ease;
+    border-left: 1px solid var(--border-color);
+    z-index: 100;
   }
 
-  .nav-links a {
+  .nav-links.mobile-open {
+    right: 0;
+  }
+
+  .nav-home,
+  .nav-personal {
+    margin: 0 0 0.5rem 0 !important;
+  }
+
+  .nav-items-main,
+  .nav-items-personal {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  /* Disable accordion animation on mobile - just show/hide */
+  .nav-items-main .nav-btn,
+  .nav-items-personal .nav-btn {
+    max-width: none !important;
+    opacity: 1 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    width: 100%;
+    text-align: left;
+    animation: none !important;
+  }
+
+  .nav-items-main.hidden,
+  .nav-items-personal.hidden {
     display: none;
+  }
+  
+  .nav-items-main.visible,
+  .nav-items-personal.visible {
+    display: flex;
+  }
+
+  .theme-toggle {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem;
   }
 
   .hero {
