@@ -160,7 +160,58 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
+}
+
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+.nav-group.main-nav .nav-collapsible {
+  transition: all 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
+  transform-origin: left center;
+}
+
+.nav-group.main-nav.collapsed .nav-collapsible {
+  max-width: 0;
+  opacity: 0;
+  transform: scaleX(0);
+  margin: 0;
+  padding: 0;
+}
+
+.nav-group.personal-nav {
+  transition: all 0.3s ease;
+}
+
+.nav-group.personal-nav .nav-expandable {
+  transition: all 0.3s ease, opacity 0.2s ease 0.1s, transform 0.3s ease;
+  transform-origin: left center;
+}
+
+.nav-group.personal-nav.collapsed {
+  max-width: 0;
+  opacity: 0;
+}
+
+.nav-group.personal-nav.collapsed .nav-expandable {
+  max-width: 0;
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border-color);
+  transition: opacity 0.3s ease;
+}
+
+.personal-link {
+  transition: all 0.3s ease;
 }
 
 .nav-links a,

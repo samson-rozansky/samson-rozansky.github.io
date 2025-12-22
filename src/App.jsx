@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
+import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava } from 'react-icons/fa'
 import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
 import { TbLambda, TbBrain, TbWriting, TbChartLine, TbBrandCSharp } from 'react-icons/tb'
@@ -25,34 +25,79 @@ function scrollToSection(id) {
 
 function Header({ isDark, setIsDark }) {
   const location = useLocation()
+  const navigate = useNavigate()
   const isPersonalPage = location.pathname === '/personal'
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [showPersonalNav, setShowPersonalNav] = useState(isPersonalPage)
+
+  useEffect(() => {
+    if (isPersonalPage) {
+      setIsAnimating(true)
+      const timer = setTimeout(() => {
+        setShowPersonalNav(true)
+        setIsAnimating(false)
+      }, 300)
+      return () => clearTimeout(timer)
+    } else {
+      setIsAnimating(true)
+      setShowPersonalNav(false)
+      const timer = setTimeout(() => {
+        setIsAnimating(false)
+      }, 300)
+      return () => clearTimeout(timer)
+    }
+  }, [isPersonalPage])
+
+  const handlePersonalClick = () => {
+    setIsAnimating(true)
+    setTimeout(() => {
+      navigate('/personal')
+    }, 150)
+  }
+
+  const handleHomeClick = () => {
+    setIsAnimating(true)
+    setTimeout(() => {
+      navigate('/')
+    }, 150)
+  }
 
   return (
     <header className="header">
       <nav className="nav">
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={(e) => { if (isPersonalPage) { e.preventDefault(); handleHomeClick(); }}}>
           <TbLambda className="lambda-icon" />
           <span className="logo-text">SR</span>
         </Link>
         <div className="nav-links">
-          {isPersonalPage ? (
-            <>
-              <Link to="/"><span className="nav-lambda">λ</span>home</Link>
-              <button onClick={() => scrollToSection('personal')} className="nav-btn"><span className="nav-lambda">λ</span>personal</button>
-              <button onClick={() => scrollToSection('insights')} className="nav-btn"><span className="nav-lambda">λ</span>insights</button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => scrollToSection('about')} className="nav-btn"><span className="nav-lambda">λ</span>about</button>
-              <button onClick={() => scrollToSection('education')} className="nav-btn"><span className="nav-lambda">λ</span>education</button>
-              <button onClick={() => scrollToSection('experience')} className="nav-btn"><span className="nav-lambda">λ</span>experience</button>
-              <button onClick={() => scrollToSection('projects')} className="nav-btn"><span className="nav-lambda">λ</span>projects</button>
-              <button onClick={() => scrollToSection('teaching')} className="nav-btn"><span className="nav-lambda">λ</span>teaching</button>
-              <button onClick={() => scrollToSection('skills')} className="nav-btn"><span className="nav-lambda">λ</span>skills</button>
-              <button onClick={() => scrollToSection('contact')} className="nav-btn"><span className="nav-lambda">λ</span>contact</button>
-              <Link to="/personal"><span className="nav-lambda">λ</span>personal</Link>
-            </>
+          <div className={`nav-group main-nav ${isPersonalPage ? 'collapsed' : ''} ${isAnimating ? 'animating' : ''}`}>
+            <button onClick={() => scrollToSection('about')} className="nav-btn"><span className="nav-lambda">λ</span>home</button>
+            <button onClick={() => scrollToSection('education')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>education</button>
+            <button onClick={() => scrollToSection('experience')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>experience</button>
+            <button onClick={() => scrollToSection('projects')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>projects</button>
+            <button onClick={() => scrollToSection('teaching')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>teaching</button>
+            <button onClick={() => scrollToSection('skills')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>skills</button>
+            <button onClick={() => scrollToSection('contact')} className="nav-btn nav-collapsible"><span className="nav-lambda">λ</span>contact</button>
+          </div>
+          
+          <div className="nav-divider"></div>
+          
+          <div className={`nav-group personal-nav ${!isPersonalPage ? 'collapsed' : ''} ${isAnimating ? 'animating' : ''}`}>
+            {isPersonalPage && (
+              <>
+                <button onClick={handleHomeClick} className="nav-btn"><span className="nav-lambda">λ</span>home</button>
+                <button onClick={() => scrollToSection('interests')} className="nav-btn nav-expandable"><span className="nav-lambda">λ</span>interests</button>
+                <button onClick={() => scrollToSection('insights')} className="nav-btn nav-expandable"><span className="nav-lambda">λ</span>insights</button>
+              </>
+            )}
+          </div>
+          
+          {!isPersonalPage && (
+            <button onClick={handlePersonalClick} className="nav-btn personal-link">
+              <span className="nav-lambda">λ</span>personal
+            </button>
           )}
+          
           <button 
             className="theme-toggle" 
             onClick={() => setIsDark(!isDark)}
@@ -443,9 +488,9 @@ function MainPage() {
 function PersonalPage() {
   return (
     <main className="personal-page">
-      <section id="personal" className="section personal-section-page">
+      <section id="interests" className="section personal-section-page">
         <div className="section-header">
-          <h2><span className="section-keyword">datatype</span> Personal <span className="section-eq">=</span> <span className="type">Me</span> <span className="section-keyword">of</span></h2>
+          <h2><span className="section-keyword">datatype</span> Interests <span className="section-eq">=</span> <span className="type">Me</span> <span className="section-keyword">of</span></h2>
         </div>
         <div className="personal-grid">
           <div className="personal-card favorites-card">
@@ -496,12 +541,6 @@ function PersonalPage() {
           </p>
         </div>
       </section>
-
-      <div className="back-home">
-        <Link to="/" className="back-link">
-          <span className="keyword">fun</span> goBack () <span className="section-eq">=</span> Home
-        </Link>
-      </div>
     </main>
   )
 }
