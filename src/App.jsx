@@ -41,37 +41,27 @@ function Header({ isDark, setIsDark }) {
         </Link>
         <div className="nav-links">
           {/* Home button - always visible */}
-          {isPersonalPage ? (
-            <button onClick={() => handleNavigation('/')} className="nav-btn">
-              <span className="nav-lambda">λ</span>home
-            </button>
-          ) : (
-            <button onClick={() => scrollToSection('about')} className="nav-btn">
-              <span className="nav-lambda">λ</span>home
-            </button>
-          )}
+          <button onClick={() => isPersonalPage ? handleNavigation('/') : scrollToSection('about')} className="nav-btn nav-home">
+            <span className="nav-lambda">λ</span>home
+          </button>
           
-          {/* Main nav items - animate based on page */}
+          {/* Main nav items - glide left when hidden */}
           <div className={`nav-items-main ${isPersonalPage ? 'hidden' : 'visible'}`}>
+            <button onClick={() => scrollToSection('about')} className="nav-btn"><span className="nav-lambda">λ</span>about</button>
             <button onClick={() => scrollToSection('education')} className="nav-btn"><span className="nav-lambda">λ</span>education</button>
             <button onClick={() => scrollToSection('experience')} className="nav-btn"><span className="nav-lambda">λ</span>experience</button>
             <button onClick={() => scrollToSection('projects')} className="nav-btn"><span className="nav-lambda">λ</span>projects</button>
             <button onClick={() => scrollToSection('teaching')} className="nav-btn"><span className="nav-lambda">λ</span>teaching</button>
             <button onClick={() => scrollToSection('skills')} className="nav-btn"><span className="nav-lambda">λ</span>skills</button>
             <button onClick={() => scrollToSection('contact')} className="nav-btn"><span className="nav-lambda">λ</span>contact</button>
+            <button onClick={() => handleNavigation('/personal')} className="nav-btn"><span className="nav-lambda">λ</span>personal</button>
           </div>
 
-          {/* Personal nav items - animate based on page */}
+          {/* Personal nav items - glide right when expanding */}
           <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'}`}>
+            <button onClick={() => scrollToSection('interests')} className="nav-btn"><span className="nav-lambda">λ</span>personal</button>
             <button onClick={() => scrollToSection('interests')} className="nav-btn"><span className="nav-lambda">λ</span>interests</button>
             <button onClick={() => scrollToSection('insights')} className="nav-btn"><span className="nav-lambda">λ</span>insights</button>
-          </div>
-
-          {/* Personal link - only on main page */}
-          <div className={`nav-personal-link ${isPersonalPage ? 'hidden' : 'visible'}`}>
-            <button onClick={() => handleNavigation('/personal')} className="nav-btn">
-              <span className="nav-lambda">λ</span>personal
-            </button>
           </div>
           
           <button 
@@ -342,8 +332,8 @@ function MainPage() {
                 <h3>98-317: Hype for Types</h3>
                 <a href="https://hypefortypes.github.io/" target="_blank" rel="noopener noreferrer" className="course-link">
                   <FaExternalLinkAlt />
-                </a>
-              </div>
+        </a>
+      </div>
               <span className="course-role">Instructor</span>
             </div>
             <p className="course-institution">Carnegie Mellon University</p>

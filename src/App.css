@@ -163,26 +163,32 @@ body {
   gap: 1.5rem;
 }
 
+/* Nav home button */
+.nav-home {
+  flex-shrink: 0;
+}
+
 /* Nav item groups for animation */
 .nav-items-main,
-.nav-items-personal,
-.nav-personal-link {
+.nav-items-personal {
   display: flex;
   align-items: center;
   overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* Main nav - glides LEFT when hidden (into home) */
 .nav-items-main {
   gap: 1.5rem;
-  transform-origin: left center;
 }
 
 .nav-items-main .nav-btn {
-  transition: all 0.5s cubic-bezier(0.68, -0.15, 0.27, 1.15),
-              opacity 0.3s ease,
-              transform 0.5s cubic-bezier(0.68, -0.15, 0.27, 1.15);
-  transform-origin: left center;
   white-space: nowrap;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.4s ease,
+              max-width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              padding 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              margin 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .nav-items-main.visible {
@@ -191,11 +197,19 @@ body {
 
 .nav-items-main.visible .nav-btn {
   opacity: 1;
-  transform: translateX(0) scale(1);
+  transform: translateX(0);
   max-width: 150px;
-  padding-left: 0;
-  padding-right: 0;
 }
+
+/* Stagger expanding - items glide out from left to right */
+.nav-items-main.visible .nav-btn:nth-child(1) { transition-delay: 0.05s; }
+.nav-items-main.visible .nav-btn:nth-child(2) { transition-delay: 0.1s; }
+.nav-items-main.visible .nav-btn:nth-child(3) { transition-delay: 0.15s; }
+.nav-items-main.visible .nav-btn:nth-child(4) { transition-delay: 0.2s; }
+.nav-items-main.visible .nav-btn:nth-child(5) { transition-delay: 0.25s; }
+.nav-items-main.visible .nav-btn:nth-child(6) { transition-delay: 0.3s; }
+.nav-items-main.visible .nav-btn:nth-child(7) { transition-delay: 0.35s; }
+.nav-items-main.visible .nav-btn:nth-child(8) { transition-delay: 0.4s; }
 
 .nav-items-main.hidden {
   gap: 0;
@@ -203,40 +217,36 @@ body {
 
 .nav-items-main.hidden .nav-btn {
   opacity: 0;
-  transform: translateX(-100%) scale(0);
+  transform: translateX(-30px);
   max-width: 0;
-  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
   margin: 0;
   overflow: hidden;
 }
 
-/* Stagger the animation for consuming effect */
-.nav-items-main.hidden .nav-btn:nth-child(1) { transition-delay: 0.25s; }
-.nav-items-main.hidden .nav-btn:nth-child(2) { transition-delay: 0.2s; }
+/* Stagger collapsing - items glide into home from right to left */
+.nav-items-main.hidden .nav-btn:nth-child(8) { transition-delay: 0s; }
+.nav-items-main.hidden .nav-btn:nth-child(7) { transition-delay: 0.03s; }
+.nav-items-main.hidden .nav-btn:nth-child(6) { transition-delay: 0.06s; }
+.nav-items-main.hidden .nav-btn:nth-child(5) { transition-delay: 0.09s; }
+.nav-items-main.hidden .nav-btn:nth-child(4) { transition-delay: 0.12s; }
 .nav-items-main.hidden .nav-btn:nth-child(3) { transition-delay: 0.15s; }
-.nav-items-main.hidden .nav-btn:nth-child(4) { transition-delay: 0.1s; }
-.nav-items-main.hidden .nav-btn:nth-child(5) { transition-delay: 0.05s; }
-.nav-items-main.hidden .nav-btn:nth-child(6) { transition-delay: 0s; }
+.nav-items-main.hidden .nav-btn:nth-child(2) { transition-delay: 0.18s; }
+.nav-items-main.hidden .nav-btn:nth-child(1) { transition-delay: 0.21s; }
 
-/* Reverse stagger for expanding effect */
-.nav-items-main.visible .nav-btn:nth-child(1) { transition-delay: 0s; }
-.nav-items-main.visible .nav-btn:nth-child(2) { transition-delay: 0.05s; }
-.nav-items-main.visible .nav-btn:nth-child(3) { transition-delay: 0.1s; }
-.nav-items-main.visible .nav-btn:nth-child(4) { transition-delay: 0.15s; }
-.nav-items-main.visible .nav-btn:nth-child(5) { transition-delay: 0.2s; }
-.nav-items-main.visible .nav-btn:nth-child(6) { transition-delay: 0.25s; }
-
+/* Personal nav - glides RIGHT when expanding (out of home) */
 .nav-items-personal {
   gap: 1.5rem;
-  transform-origin: left center;
 }
 
 .nav-items-personal .nav-btn {
-  transition: all 0.5s cubic-bezier(0.68, -0.15, 0.27, 1.15),
-              opacity 0.3s ease,
-              transform 0.5s cubic-bezier(0.68, -0.15, 0.27, 1.15);
-  transform-origin: left center;
   white-space: nowrap;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.4s ease,
+              max-width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              padding 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              margin 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .nav-items-personal.visible {
@@ -245,13 +255,14 @@ body {
 
 .nav-items-personal.visible .nav-btn {
   opacity: 1;
-  transform: translateX(0) scale(1);
+  transform: translateX(0);
   max-width: 150px;
 }
 
-/* Stagger for personal items expanding out */
+/* Stagger expanding - personal items glide out left to right */
 .nav-items-personal.visible .nav-btn:nth-child(1) { transition-delay: 0.3s; }
 .nav-items-personal.visible .nav-btn:nth-child(2) { transition-delay: 0.4s; }
+.nav-items-personal.visible .nav-btn:nth-child(3) { transition-delay: 0.5s; }
 
 .nav-items-personal.hidden {
   gap: 0;
@@ -259,45 +270,18 @@ body {
 
 .nav-items-personal.hidden .nav-btn {
   opacity: 0;
-  transform: translateX(-100%) scale(0);
+  transform: translateX(-30px);
   max-width: 0;
-  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
   margin: 0;
   overflow: hidden;
 }
 
-/* Stagger for personal items being consumed */
+/* Stagger collapsing - personal items glide back right to left */
+.nav-items-personal.hidden .nav-btn:nth-child(3) { transition-delay: 0s; }
+.nav-items-personal.hidden .nav-btn:nth-child(2) { transition-delay: 0.05s; }
 .nav-items-personal.hidden .nav-btn:nth-child(1) { transition-delay: 0.1s; }
-.nav-items-personal.hidden .nav-btn:nth-child(2) { transition-delay: 0s; }
-
-.nav-personal-link {
-  gap: 1.5rem;
-}
-
-.nav-personal-link .nav-btn {
-  transition: all 0.4s cubic-bezier(0.68, -0.15, 0.27, 1.15),
-              opacity 0.3s ease;
-  white-space: nowrap;
-}
-
-.nav-personal-link.visible .nav-btn {
-  opacity: 1;
-  transform: translateX(0) scale(1);
-  max-width: 150px;
-}
-
-.nav-personal-link.hidden {
-  gap: 0;
-}
-
-.nav-personal-link.hidden .nav-btn {
-  opacity: 0;
-  transform: translateX(-50px) scale(0.5);
-  max-width: 0;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-}
 
 .nav-links a,
 .nav-links .nav-btn {
