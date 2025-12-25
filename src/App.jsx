@@ -540,7 +540,7 @@ function MainPage() {
             <p className="course-description">
               Designed curriculum and taught weekly lectures for undergraduates interested in type theory. 
               Topics covered included Rust's type system, proof assistants, and formal verification. 
-              Handled logistics including the course website, homework autograders, and organized a guest lecture with Yaron Minsky.
+              Handled logistics including the course website, homework autograders, and guest lectures.
             </p>
             <div className="course-topics">
               <h4><span className="keyword">instance</span> Topics <span className="keyword">where</span></h4>
