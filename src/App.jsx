@@ -533,7 +533,7 @@ function PersonalPage() {
 
       <section id="music" className="section music-section">
         <div className="section-header">
-          <h2><span className="section-keyword">val</span> bangers <span className="colon">:</span> <span className="type">track list</span> <span className="section-eq">=</span></h2>
+          <h2><span className="section-keyword">val</span> music <span className="colon">:</span> <span className="type">track list</span> <span className="section-eq">=</span></h2>
         </div>
         <div className="music-container">
           <div className="music-card">
