@@ -174,6 +174,14 @@ function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    
+    // Track page views in Google Analytics
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'page_view', {
+        page_path: pathname,
+        page_title: pathname === '/personal' ? 'Personal' : 'Home'
+      })
+    }
   }, [pathname])
   return null
 }
