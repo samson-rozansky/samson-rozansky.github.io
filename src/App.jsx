@@ -715,8 +715,9 @@ function PersonalPage({ isDark }) {
               </div>
             </div>
             <div className="spotify-embed">
+              {/* Both iframes preloaded, toggle visibility for instant theme switching */}
               <iframe
-                title="Spotify Playlist"
+                title="Spotify Playlist Dark"
                 src="https://open.spotify.com/embed/playlist/7ttYj7jv5TS2UEuVSaTzd1?utm_source=generator&theme=0"
                 width="100%"
                 height="352"
@@ -724,6 +725,18 @@ function PersonalPage({ isDark }) {
                 allowFullScreen=""
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
+                style={{ display: isDark ? 'block' : 'none' }}
+              ></iframe>
+              <iframe
+                title="Spotify Playlist Light"
+                src="https://open.spotify.com/embed/playlist/7ttYj7jv5TS2UEuVSaTzd1?utm_source=generator"
+                width="100%"
+                height="352"
+                frameBorder="0"
+                allowFullScreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                style={{ display: isDark ? 'none' : 'block' }}
               ></iframe>
             </div>
           </div>
