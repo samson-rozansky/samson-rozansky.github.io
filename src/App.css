@@ -370,8 +370,9 @@ body {
 }
 
 /* Expand synced with main collapse - both finish at ~1s */
-.nav-items-personal.visible .nav-btn:nth-child(1) { animation-delay: 0.45s; }
-.nav-items-personal.visible .nav-btn:nth-child(2) { animation-delay: 0.72s; }
+.nav-items-personal.visible .nav-btn:nth-child(1) { animation-delay: 0.35s; }
+.nav-items-personal.visible .nav-btn:nth-child(2) { animation-delay: 0.55s; }
+.nav-items-personal.visible .nav-btn:nth-child(3) { animation-delay: 0.75s; }
 
 /* When hidden - collapse back into personal */
 .nav-items-personal.hidden .nav-btn {
@@ -383,7 +384,8 @@ body {
 }
 
 /* Collapse slightly faster than main expand - finishes at ~0.85s while main finishes at ~1s */
-.nav-items-personal.hidden .nav-btn:nth-child(2) { animation-delay: 0.25s; }
+.nav-items-personal.hidden .nav-btn:nth-child(3) { animation-delay: 0.15s; }
+.nav-items-personal.hidden .nav-btn:nth-child(2) { animation-delay: 0.35s; }
 .nav-items-personal.hidden .nav-btn:nth-child(1) { animation-delay: 0.55s; }
 
 /* ===== NO ANIMATION ON INITIAL LOAD ===== */
@@ -1247,6 +1249,68 @@ main {
   color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.7;
+}
+
+/* Music Section */
+.music-section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.music-container {
+  display: flex;
+  justify-content: center;
+}
+
+.music-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  transition: all var(--transition);
+  width: 100%;
+  max-width: 600px;
+}
+
+.music-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 24px var(--accent-glow);
+}
+
+.music-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.music-icon {
+  font-size: 2.5rem;
+  color: var(--accent-primary);
+  filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+.music-info h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin-bottom: 0.2rem;
+}
+
+.music-info p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.spotify-embed {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.spotify-embed iframe {
+  border-radius: 12px;
 }
 
 /* Insights Section */

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava } from 'react-icons/fa'
 import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
-import { TbLambda, TbBrain, TbWriting, TbChartLine, TbBrandCSharp } from 'react-icons/tb'
+import { TbLambda, TbBrain, TbWriting, TbChartLine, TbBrandCSharp, TbMusic } from 'react-icons/tb'
 import { DiProlog } from 'react-icons/di'
 import { HiCode } from 'react-icons/hi'
 import { BiCodeCurly } from 'react-icons/bi'
@@ -90,6 +90,7 @@ function Header({ isDark, setIsDark }) {
           {/* Personal nav items - expand from left to right out of personal */}
           <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'} ${animationsEnabled ? '' : 'no-animation'}`}>
             <button onClick={() => handleScrollTo('interests')} className="nav-btn"><span className="nav-lambda">λ</span>interests</button>
+            <button onClick={() => handleScrollTo('music')} className="nav-btn"><span className="nav-lambda">λ</span>music</button>
             <button onClick={() => handleScrollTo('insights')} className="nav-btn"><span className="nav-lambda">λ</span>insights</button>
           </div>
           
@@ -526,6 +527,35 @@ function PersonalPage() {
               I love reading Hacker News to stay up to date on the latest tech and enjoy 
               diving into the history of technology and computing.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="music" className="section music-section">
+        <div className="section-header">
+          <h2><span className="section-keyword">val</span> bangers <span className="colon">:</span> <span className="type">track list</span> <span className="section-eq">=</span></h2>
+        </div>
+        <div className="music-container">
+          <div className="music-card">
+            <div className="music-header">
+              <TbMusic className="music-icon" />
+              <div className="music-info">
+                <h3>Bangers</h3>
+                <p>My favorite tracks</p>
+              </div>
+            </div>
+            <div className="spotify-embed">
+              <iframe
+                title="Spotify Playlist"
+                src="https://open.spotify.com/embed/playlist/7ttYj7jv5TS2UEuVSaTzd1?utm_source=generator&theme=0"
+                width="100%"
+                height="352"
+                frameBorder="0"
+                allowFullScreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
