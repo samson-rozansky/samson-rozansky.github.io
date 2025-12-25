@@ -536,18 +536,18 @@ function MainPage() {
       </div>
               <span className="course-role">Instructor</span>
             </div>
-            <p className="course-institution">Carnegie Mellon University</p>
+            <p className="course-institution">Carnegie Mellon University | Pittsburgh, PA | Spring 2026</p>
             <p className="course-description">
-              A student-run course (StuCo) teaching topics in type theory and related disciplines. 
-              Designed to give students a high-level introduction to fascinating practical topics 
-              in type theory and programming language theory.
+              Designed curriculum and taught weekly lectures for undergraduates interested in type theory. 
+              Topics covered included Rust's type system, proof assistants, and formal verification. 
+              Handled logistics including the course website, homework autograders, and organized a guest lecture with Yaron Minsky.
             </p>
             <div className="course-topics">
               <h4><span className="keyword">instance</span> Topics <span className="keyword">where</span></h4>
               <div className="topic-tags">
                 {['Simply-Typed Lambda Calculus', 'Algebraic Data Types', 'Curry-Howard Isomorphism',
                   'Continuations', 'Substructural Logic', 'Phantom Types', 'Polymorphism',
-                  'Parametricity', 'Monads', 'Dependent Types'].map(topic => (
+                  'Parametricity', 'Monads', 'Dependent Types', 'Rust Type System', 'Proof Assistants', 'Formal Verification'].map(topic => (
                   <span key={topic} className="topic-tag">{topic}</span>
                 ))}
               </div>
