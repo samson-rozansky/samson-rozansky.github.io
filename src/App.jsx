@@ -487,7 +487,7 @@ function MainPage() {
   )
 }
 
-function PersonalPage() {
+function PersonalPage({ isDark }) {
   return (
     <main className="personal-page">
       <section id="interests" className="section personal-section-page">
@@ -547,7 +547,7 @@ function PersonalPage() {
             <div className="spotify-embed">
               <iframe
                 title="Spotify Playlist"
-                src="https://open.spotify.com/embed/playlist/7ttYj7jv5TS2UEuVSaTzd1?utm_source=generator&theme=0"
+                src={`https://open.spotify.com/embed/playlist/7ttYj7jv5TS2UEuVSaTzd1?utm_source=generator${isDark ? '&theme=0' : ''}`}
                 width="100%"
                 height="352"
                 frameBorder="0"
@@ -595,13 +595,13 @@ function Footer() {
   )
 }
 
-function AnimatedRoutes() {
+function AnimatedRoutes({ isDark }) {
   const location = useLocation()
   
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={<MainPage />} />
-      <Route path="/personal" element={<PersonalPage />} />
+      <Route path="/personal" element={<PersonalPage isDark={isDark} />} />
     </Routes>
   )
 }
@@ -619,7 +619,7 @@ function App() {
         <div className="background-pattern"></div>
         <ScrollToTop />
         <Header isDark={isDark} setIsDark={setIsDark} />
-        <AnimatedRoutes />
+        <AnimatedRoutes isDark={isDark} />
         <Footer />
       </div>
     </HashRouter>
