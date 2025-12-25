@@ -82,18 +82,18 @@ function LossCurve() {
 
     if (graphWidth <= 0 || graphHeight <= 0) return
 
-    // Draw axes - very subtle
-    ctx.strokeStyle = 'rgba(0, 212, 255, 0.15)'
-    ctx.lineWidth = 1.5
+    // Draw axes - more visible
+    ctx.strokeStyle = 'rgba(0, 212, 255, 0.35)'
+    ctx.lineWidth = 2
     ctx.beginPath()
     ctx.moveTo(padding.left, padding.top)
     ctx.lineTo(padding.left, height - padding.bottom)
     ctx.lineTo(width - padding.right, height - padding.bottom)
     ctx.stroke()
 
-    // Minimal labels
-    ctx.fillStyle = 'rgba(0, 212, 255, 0.25)'
-    ctx.font = '11px JetBrains Mono, monospace'
+    // Labels - brighter
+    ctx.fillStyle = 'rgba(0, 212, 255, 0.5)'
+    ctx.font = '12px JetBrains Mono, monospace'
     ctx.textAlign = 'center'
     ctx.fillText('epochs', width / 2, height - 35)
 
@@ -141,11 +141,11 @@ function LossCurve() {
       ctx.fill()
     }
 
-    // Very subtle title
-    ctx.fillStyle = 'rgba(0, 212, 255, 0.2)'
-    ctx.font = '12px JetBrains Mono, monospace'
+    // Title - brighter and more descriptive
+    ctx.fillStyle = 'rgba(0, 212, 255, 0.45)'
+    ctx.font = '13px JetBrains Mono, monospace'
     ctx.textAlign = 'right'
-    ctx.fillText('learning progress', width - padding.right, padding.top - 20)
+    ctx.fillText('learning about samson progress', width - padding.right, padding.top - 20)
 
   }, [scrollProgress])
 
