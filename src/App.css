@@ -527,10 +527,25 @@ main {
   max-width: 1200px;
   margin: 0 auto;
   gap: 4rem;
+  position: relative;
+}
+
+/* Loss Curve Background - Fixed to follow user */
+.loss-curve-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
 }
 
 .hero-content {
   flex: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .type-annotation {
@@ -620,6 +635,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .neural-net {
@@ -1566,6 +1583,10 @@ main {
   .hero-visual {
     order: 1;
     flex: 0 0 200px;
+  }
+
+  .loss-curve-canvas {
+    opacity: 0.2 !important;
   }
 
   .neural-net {

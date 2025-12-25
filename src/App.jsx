@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava } from 'react-icons/fa'
 import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
@@ -7,6 +7,168 @@ import { DiProlog } from 'react-icons/di'
 import { HiCode } from 'react-icons/hi'
 import { BiCodeCurly } from 'react-icons/bi'
 import './App.css'
+
+// Loss Curve Background Component - Shows a training loss curve that generates as user scrolls
+function LossCurve() {
+  const canvasRef = useRef(null)
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const lossPointsRef = useRef(null)
+
+  // Generate loss curve data points once
+  useEffect(() => {
+    const points = []
+    for (let i = 0; i < 200; i++) {
+      const t = i / 200
+      const baseLoss = 2.5 * Math.exp(-3 * t) + 0.15
+      const noise = (Math.random() - 0.5) * 0.15 * (1 - t * 0.7)
+      const spike = Math.random() > 0.95 ? Math.random() * 0.1 : 0
+      points.push(Math.max(0.1, baseLoss + noise + spike))
+    }
+    lossPointsRef.current = points
+  }, [])
+
+  // Handle scroll and resize
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      // Complete the curve exactly at contact section (100% of scroll)
+      const progress = docHeight > 0 ? Math.min(1, scrollTop / docHeight) : 0
+      setScrollProgress(progress)
+    }
+
+    const handleResize = () => {
+      setScrollProgress(prev => prev) // Force re-render
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleResize)
+    handleScroll()
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  // Draw on canvas
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas || !lossPointsRef.current) return
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    // Set canvas size
+    const width = window.innerWidth
+    const height = window.innerHeight
+    canvas.width = width
+    canvas.height = height
+
+    // Clear
+    ctx.clearRect(0, 0, width, height)
+
+    const lossPoints = lossPointsRef.current
+    const numPointsToDraw = Math.floor(scrollProgress * lossPoints.length) + 15
+
+    // Larger padding to make the graph smaller and fit nicely
+    const padding = { 
+      top: Math.max(120, height * 0.15), 
+      right: Math.max(80, width * 0.1), 
+      bottom: Math.max(120, height * 0.15), 
+      left: Math.max(120, width * 0.1) 
+    }
+    const graphWidth = width - padding.left - padding.right
+    const graphHeight = height - padding.top - padding.bottom
+
+    if (graphWidth <= 0 || graphHeight <= 0) return
+
+    // Draw axes - very subtle
+    ctx.strokeStyle = 'rgba(0, 212, 255, 0.15)'
+    ctx.lineWidth = 1.5
+    ctx.beginPath()
+    ctx.moveTo(padding.left, padding.top)
+    ctx.lineTo(padding.left, height - padding.bottom)
+    ctx.lineTo(width - padding.right, height - padding.bottom)
+    ctx.stroke()
+
+    // Minimal labels
+    ctx.fillStyle = 'rgba(0, 212, 255, 0.25)'
+    ctx.font = '11px JetBrains Mono, monospace'
+    ctx.textAlign = 'center'
+    ctx.fillText('epochs', width / 2, height - 35)
+
+    ctx.save()
+    ctx.translate(padding.left - 60, height / 2)
+    ctx.rotate(-Math.PI / 2)
+    ctx.fillText('loss', 0, 0)
+    ctx.restore()
+
+    const maxLoss = 2.5
+
+    // Draw loss curve - more subtle
+    ctx.strokeStyle = 'rgba(0, 212, 255, 0.5)'
+    ctx.lineWidth = 2.5
+    ctx.lineCap = 'round'
+    ctx.lineJoin = 'round'
+    ctx.shadowColor = 'rgba(0, 212, 255, 0.3)'
+    ctx.shadowBlur = 8
+
+    ctx.beginPath()
+    for (let i = 0; i < Math.min(numPointsToDraw, lossPoints.length); i++) {
+      const x = padding.left + (i / (lossPoints.length - 1)) * graphWidth
+      const normalizedLoss = Math.min(1, Math.max(0, lossPoints[i] / maxLoss))
+      const y = padding.top + (1 - normalizedLoss) * graphHeight
+
+      if (i === 0) {
+        ctx.moveTo(x, y)
+      } else {
+        ctx.lineTo(x, y)
+      }
+    }
+    ctx.stroke()
+    ctx.shadowBlur = 0
+
+    // Small subtle indicator at current point
+    if (numPointsToDraw > 1 && numPointsToDraw <= lossPoints.length) {
+      const idx = Math.min(numPointsToDraw - 1, lossPoints.length - 1)
+      const x = padding.left + (idx / (lossPoints.length - 1)) * graphWidth
+      const normalizedLoss = Math.min(1, Math.max(0, lossPoints[idx] / maxLoss))
+      const y = padding.top + (1 - normalizedLoss) * graphHeight
+
+      ctx.beginPath()
+      ctx.arc(x, y, 4, 0, Math.PI * 2)
+      ctx.fillStyle = 'rgba(0, 212, 255, 0.6)'
+      ctx.fill()
+    }
+
+    // Very subtle title
+    ctx.fillStyle = 'rgba(0, 212, 255, 0.2)'
+    ctx.font = '12px JetBrains Mono, monospace'
+    ctx.textAlign = 'right'
+    ctx.fillText('learning progress', width - padding.right, padding.top - 20)
+
+  }, [scrollProgress])
+
+  // Calculate how much to move the graph up as user scrolls
+  const translateY = scrollProgress * window.innerHeight * 0.8
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        pointerEvents: 'none',
+        zIndex: 0,
+        opacity: 0.4,
+        transform: `translateY(-${translateY}px)`,
+      }}
+    />
+  )
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -553,7 +715,6 @@ function PersonalPage({ isDark }) {
                 frameBorder="0"
                 allowFullScreen=""
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
               ></iframe>
             </div>
           </div>
@@ -617,6 +778,7 @@ function App() {
     <HashRouter>
       <div className="app">
         <div className="background-pattern"></div>
+        <LossCurve />
         <ScrollToTop />
         <Header isDark={isDark} setIsDark={setIsDark} />
         <AnimatedRoutes isDark={isDark} />
