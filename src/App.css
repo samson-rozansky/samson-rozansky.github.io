@@ -76,44 +76,7 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.03;
-  background-image: 
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 50px,
-      var(--accent-primary) 50px,
-      var(--accent-primary) 51px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 50px,
-      var(--accent-primary) 50px,
-      var(--accent-primary) 51px
-    );
-}
-
-[data-theme="dark"] .background-pattern::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 80%, rgba(0, 255, 204, 0.05) 0%, transparent 50%);
-}
-
-[data-theme="light"] .background-pattern::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse at 20% 20%, rgba(0, 136, 204, 0.06) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 80%, rgba(255, 119, 51, 0.04) 0%, transparent 50%);
+  display: none;
 }
 
 /* Header */
