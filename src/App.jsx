@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
 import { TbLambda, TbBrain, TbWriting, TbChartLine, TbBrandCSharp, TbMusic } from 'react-icons/tb'
 import { DiProlog } from 'react-icons/di'
@@ -198,10 +199,11 @@ function Header({ isDark, setIsDark }) {
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [animationsEnabled, setAnimationsEnabled] = useState(false)
+  const isResumePage = location.pathname === '/resume'
   const isPersonalPage = location.pathname === '/personal'
+  const isHomePage = location.pathname === '/'
 
   const handleNavigation = (path) => {
-    // Enable animations only when user clicks navigation
     setAnimationsEnabled(true)
     navigate(path)
     setMobileMenuOpen(false)
@@ -234,34 +236,48 @@ function Header({ isDark, setIsDark }) {
 
         <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           {/* Home button - always visible */}
-          <button onClick={() => isPersonalPage ? handleNavigation('/') : handleScrollTo('about')} className="nav-btn nav-home">
+          <button 
+            onClick={() => isHomePage ? handleScrollTo('about') : handleNavigation('/')} 
+            className="nav-btn nav-main-btn"
+          >
             <span className="nav-lambda">λ</span>home
           </button>
-          
-          {/* Main nav items - collapse from right to left into personal */}
-          <div className={`nav-items-main ${isPersonalPage ? 'hidden' : 'visible'} ${animationsEnabled ? '' : 'no-animation'}`}>
-            <button onClick={() => handleScrollTo('about')} className="nav-btn"><span className="nav-lambda">λ</span>about</button>
-            <button onClick={() => handleScrollTo('education')} className="nav-btn"><span className="nav-lambda">λ</span>education</button>
-            <button onClick={() => handleScrollTo('experience')} className="nav-btn"><span className="nav-lambda">λ</span>experience</button>
-            <button onClick={() => handleScrollTo('projects')} className="nav-btn"><span className="nav-lambda">λ</span>projects</button>
-            <button onClick={() => handleScrollTo('teaching')} className="nav-btn"><span className="nav-lambda">λ</span>teaching</button>
-            <button onClick={() => handleScrollTo('skills')} className="nav-btn"><span className="nav-lambda">λ</span>skills</button>
-            <button onClick={() => handleScrollTo('contact')} className="nav-btn"><span className="nav-lambda">λ</span>contact</button>
+
+          {/* Home nav items */}
+          <div className={`nav-items-home ${isHomePage ? 'visible' : 'hidden'} ${animationsEnabled ? '' : 'no-animation'}`}>
+            <button onClick={() => handleScrollTo('contact')} className="nav-btn"><span className="nav-unit">()</span>contact</button>
           </div>
 
-          {/* Personal button - always visible, acts as the pivot point */}
+          {/* Resume button - always visible */}
           <button 
-            onClick={() => isPersonalPage ? handleNavigation('/') : handleNavigation('/personal')} 
-            className="nav-btn nav-personal"
+            onClick={() => isResumePage ? handleScrollTo('education') : handleNavigation('/resume')} 
+            className="nav-btn nav-main-btn nav-resume"
+          >
+            <span className="nav-lambda">λ</span>resume
+          </button>
+          
+          {/* Resume nav items */}
+          <div className={`nav-items-main ${isResumePage ? 'visible' : 'hidden'} ${animationsEnabled ? '' : 'no-animation'}`}>
+            <button onClick={() => handleScrollTo('education')} className="nav-btn"><span className="nav-unit">()</span>education</button>
+            <button onClick={() => handleScrollTo('experience')} className="nav-btn"><span className="nav-unit">()</span>experience</button>
+            <button onClick={() => handleScrollTo('projects')} className="nav-btn"><span className="nav-unit">()</span>projects</button>
+            <button onClick={() => handleScrollTo('teaching')} className="nav-btn"><span className="nav-unit">()</span>teaching</button>
+            <button onClick={() => handleScrollTo('skills')} className="nav-btn"><span className="nav-unit">()</span>skills</button>
+          </div>
+
+          {/* Personal button - always visible */}
+          <button 
+            onClick={() => isPersonalPage ? handleScrollTo('interests') : handleNavigation('/personal')} 
+            className="nav-btn nav-main-btn nav-personal"
           >
             <span className="nav-lambda">λ</span>personal
           </button>
 
-          {/* Personal nav items - expand from left to right out of personal */}
+          {/* Personal nav items */}
           <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'} ${animationsEnabled ? '' : 'no-animation'}`}>
-            <button onClick={() => handleScrollTo('interests')} className="nav-btn"><span className="nav-lambda">λ</span>interests</button>
-            <button onClick={() => handleScrollTo('music')} className="nav-btn"><span className="nav-lambda">λ</span>music</button>
-            <button onClick={() => handleScrollTo('insights')} className="nav-btn"><span className="nav-lambda">λ</span>insights</button>
+            <button onClick={() => handleScrollTo('interests')} className="nav-btn"><span className="nav-unit">()</span>interests</button>
+            <button onClick={() => handleScrollTo('music')} className="nav-btn"><span className="nav-unit">()</span>music</button>
+            <button onClick={() => handleScrollTo('thoughts')} className="nav-btn"><span className="nav-unit">()</span>thoughts</button>
           </div>
           
           <button 
@@ -277,7 +293,87 @@ function Header({ isDark, setIsDark }) {
   )
 }
 
-function MainPage() {
+function HomePage() {
+  return (
+    <main className="home-page">
+      {/* ABOUT */}
+      <section id="about" className="hero">
+        <div className="hero-content">
+          <div className="type-annotation">
+            <span className="keyword">val</span> samson <span className="colon">:</span> <span className="type">Developer</span>
+          </div>
+          <h1 className="name">
+            <TbLambda className="name-lambda" />
+            Samson Rozansky
+          </h1>
+          <p className="tagline">
+            Computer Science @ Carnegie Mellon University
+          </p>
+          <p className="sub-tagline">
+            Machine Learning <span className="operator">{"|->"}</span> Functional Programming <span className="operator">{"|->"}</span> Systems
+          </p>
+          <p className="intro-text">
+            Welcome to my corner of the internet. I'm passionate about building intelligent systems 
+            and exploring the elegance of type theory. Feel free to explore my work or reach out!
+          </p>
+        </div>
+        <div className="hero-visual">
+          <div className="neural-net">
+            <TbBrain className="brain-icon" />
+            <div className="nodes">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className={`node node-${i}`}></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="section contact-section">
+        <div className="section-header">
+          <h2><span className="section-keyword">val</span> contact <span className="colon">:</span> <span className="type">unit</span> <span className="section-arrow">-&gt;</span> <span className="type">connection</span></h2>
+        </div>
+        <p className="contact-text">
+          Good questions have good answers. Feel free to reach out.
+        </p>
+        <div className="contact-links">
+          <a href="mailto:samsonrozansky@gmail.com" className="contact-link">
+            <FaEnvelope />
+            <span>samsonrozansky@gmail.com</span>
+          </a>
+          <a href="mailto:srozansk@andrew.cmu.edu" className="contact-link">
+            <FaEnvelope />
+            <span>srozansk@andrew.cmu.edu</span>
+          </a>
+          <a href="https://github.com/samson-rozansky" target="_blank" rel="noopener noreferrer" className="contact-link">
+            <FaGithub />
+            <span>github.com/samson-rozansky</span>
+          </a>
+          <a href="https://linkedin.com/in/sam-rozansky" target="_blank" rel="noopener noreferrer" className="contact-link">
+            <FaLinkedin />
+            <span>linkedin.com/in/sam-rozansky</span>
+          </a>
+          <a href="https://x.com/SamsonRozansky" target="_blank" rel="noopener noreferrer" className="contact-link">
+            <FaXTwitter />
+            <span>x.com/SamsonRozansky</span>
+          </a>
+        </div>
+      </section>
+
+      <div className="page-nav-links">
+        <Link to="/resume" className="page-nav-link">
+          <span className="keyword">fun</span> explore () <span className="section-eq">=</span> Resume
+        </Link>
+        <Link to="/personal" className="page-nav-link">
+          <span className="keyword">fun</span> discover () <span className="section-eq">=</span> Personal
+        </Link>
+      </div>
+    </main>
+  )
+}
+
+function PortfolioPage() {
   const courses = [
     { code: '15-122', name: 'Principles of Imperative Computation' },
     { code: '15-150', name: 'Principles of Functional Programming' },
@@ -297,50 +393,7 @@ function MainPage() {
   ]
 
   return (
-    <main>
-      {/* ABOUT */}
-      <section id="about" className="hero">
-        <div className="hero-content">
-          <div className="type-annotation">
-            <span className="keyword">val</span> samson <span className="colon">:</span> <span className="type">Developer</span>
-          </div>
-          <h1 className="name">
-            <TbLambda className="name-lambda" />
-            Samson Rozansky
-          </h1>
-          <p className="tagline">
-            Computer Science @ Carnegie Mellon University
-          </p>
-          <p className="sub-tagline">
-            Machine Learning <span className="operator">{"|->"}</span> Functional Programming <span className="operator">{"|->"}</span> Systems
-          </p>
-          <div className="hero-links">
-            <a href="mailto:samsonrozansky@gmail.com" className="hero-link">
-              <FaEnvelope /> samsonrozansky [at] gmail [dot] com
-            </a>
-            <a href="mailto:srozansk@andrew.cmu.edu" className="hero-link">
-              <FaEnvelope /> srozansk [at] andrew [dot] cmu [dot] edu
-            </a>
-            <a href="https://github.com/samson-rozansky" target="_blank" rel="noopener noreferrer" className="hero-link">
-              <FaGithub /> github.com/samson-rozansky
-            </a>
-            <a href="https://linkedin.com/in/sam-rozansky" target="_blank" rel="noopener noreferrer" className="hero-link">
-              <FaLinkedin /> linkedin.com/in/sam-rozansky
-            </a>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <div className="neural-net">
-            <TbBrain className="brain-icon" />
-            <div className="nodes">
-              {[...Array(12)].map((_, i) => (
-                <div key={i} className={`node node-${i}`}></div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <main className="portfolio-page">
       {/* EDUCATION */}
       <section id="education" className="section">
         <div className="section-header">
@@ -386,10 +439,10 @@ function MainPage() {
                 <span className="location">Raleigh, NC</span>
               </div>
               <ul className="job-details">
-                <li>Indexed over 5000 JIRA issues to create model to find related RCAs for device failures</li>
-                <li>Used Flask to develop tool that let engineers create unit tests using Baxter LLM API or local Ollama models</li>
-                <li>Processed 15 years of documentation into chunks to store into vector database for employees to use</li>
-                <li>Used RAG to speedup information retrieval by 60% improving workflow and decreased communication overhead</li>
+                <li>Built RCA retrieval model by indexing every solved JIRA issue (over 5,000), to improve match rate for errors</li>
+                <li>Enabled SWEs to generate unit tests via a Flask tool integrating Baxter LLM API + Ollama, boosting coverage</li>
+                <li>Improved internal knowledge search by chunking 15 years of docs into a vector DB, resulting in quicker answers</li>
+                <li>Speedup information retrieval using RAG, resulted in improving workflow and decreased communication overhead</li>
               </ul>
             </div>
           </div>
@@ -406,9 +459,9 @@ function MainPage() {
               </div>
               <ul className="job-details">
                 <li>Implemented Recurrent Neural Networks and Support Vector Machines for predicting stock prices</li>
-                <li>Developed interactive Profit and Loss model for analyzing different option spread strategies</li>
-                <li>Utilized Tastytrade's WebSockets to stream real-time data using DXLink protocol</li>
-                <li>Collaborated with team about methods to predict Implied Volatility</li>
+                <li>Built an interactive Python P&L visualizer for option spreads to compare payoff profiles and support trade selection</li>
+                <li>Built a DXLink WebSockets proof-of-concept to stream real-time data and share an internal usage guide</li>
+                <li>Studied option fundamentals (Greeks, volatility concepts) to contribute to the team's implied volatility forecasting work</li>
               </ul>
             </div>
           </div>
@@ -620,37 +673,12 @@ function MainPage() {
         <div className="section-end"><span className="section-keyword">end</span></div>
       </section>
 
-      {/* CONTACT */}
-      <section id="contact" className="section contact-section">
-        <div className="section-header">
-          <h2><span className="section-keyword">val</span> contact <span className="colon">:</span> <span className="type">unit</span> <span className="section-arrow">-&gt;</span> <span className="type">connection</span></h2>
-        </div>
-        <p className="contact-text">
-          Good questions have good answers. Feel free to reach out.
-        </p>
-        <div className="contact-links">
-          <a href="mailto:samsonrozansky@gmail.com" className="contact-link">
-            <FaEnvelope />
-            <span>samsonrozansky [at] gmail [dot] com</span>
-          </a>
-          <a href="mailto:srozansk@andrew.cmu.edu" className="contact-link">
-            <FaEnvelope />
-            <span>srozansk [at] andrew [dot] cmu [dot] edu</span>
-          </a>
-          <a href="https://github.com/samson-rozansky" target="_blank" rel="noopener noreferrer" className="contact-link">
-            <FaGithub />
-            <span>github.com/samson-rozansky</span>
-          </a>
-          <a href="https://linkedin.com/in/sam-rozansky" target="_blank" rel="noopener noreferrer" className="contact-link">
-            <FaLinkedin />
-            <span>linkedin.com/in/sam-rozansky</span>
-          </a>
-        </div>
-      </section>
-
-      <div className="go-personal">
-        <Link to="/personal" className="go-personal-link">
-          <span className="keyword">fun</span> explore () <span className="section-eq">=</span> Personal
+      <div className="page-nav-links">
+        <Link to="/" className="page-nav-link">
+          <span className="keyword">fun</span> goBack () <span className="section-eq">=</span> Home
+        </Link>
+        <Link to="/personal" className="page-nav-link">
+          <span className="keyword">fun</span> discover () <span className="section-eq">=</span> Personal
         </Link>
       </div>
     </main>
@@ -743,22 +771,25 @@ function PersonalPage({ isDark }) {
         </div>
       </section>
 
-      <section id="insights" className="section insights-section">
+      <section id="thoughts" className="section insights-section">
         <div className="section-header">
-          <h2><span className="section-keyword">val</span> insights <span className="colon">:</span> <span className="type">blog list ref</span> <span className="section-eq">=</span></h2>
+          <h2><span className="section-keyword">val</span> thoughts <span className="colon">:</span> <span className="type">idea list ref</span> <span className="section-eq">=</span></h2>
         </div>
         <div className="insights-placeholder">
           <TbWriting className="insights-icon" />
-          <p className="insights-coming-soon">Insights coming soon...</p>
+          <p className="insights-coming-soon">Thoughts coming soon...</p>
           <p className="insights-subtext">
             <span className="keyword">raise</span> <span className="type">NotYetImplemented</span>
           </p>
         </div>
       </section>
 
-      <div className="back-home">
-        <Link to="/" className="back-link">
+      <div className="page-nav-links">
+        <Link to="/" className="page-nav-link">
           <span className="keyword">fun</span> goBack () <span className="section-eq">=</span> Home
+        </Link>
+        <Link to="/resume" className="page-nav-link">
+          <span className="keyword">fun</span> explore () <span className="section-eq">=</span> Resume
         </Link>
       </div>
     </main>
@@ -783,7 +814,8 @@ function AnimatedRoutes({ isDark }) {
   
   return (
     <Routes location={location} key={location.pathname}>
-      <Route path="/" element={<MainPage />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/resume" element={<PortfolioPage />} />
       <Route path="/personal" element={<PersonalPage isDark={isDark} />} />
     </Routes>
   )

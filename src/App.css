@@ -124,6 +124,16 @@ body {
   display: flex;
   align-items: center;
   gap: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  max-width: calc(100vw - 150px);
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 /* Mobile menu button */
@@ -178,29 +188,28 @@ body {
   display: none;
 }
 
-/* Nav home button - always visible */
-.nav-home {
+/* Main nav buttons (home, portfolio, personal) - always visible */
+.nav-main-btn {
   flex-shrink: 0;
-  margin-right: 1.5rem;
-}
-
-/* Nav personal button - always visible, acts as pivot between sections */
-.nav-personal {
-  flex-shrink: 0;
-  margin-left: 1rem;
-  margin-right: 1.5rem;
+  margin-right: 0.5rem;
   position: relative;
 }
 
-/* Vertical divider before personal button */
-.nav-personal::before {
+/* Vertical dividers between main sections */
+.nav-main-btn.nav-resume,
+.nav-main-btn.nav-personal {
+  margin-left: 0.5rem;
+}
+
+.nav-main-btn.nav-resume::before,
+.nav-main-btn.nav-personal::before {
   content: '';
   position: absolute;
-  left: -0.6rem;
+  left: -0.5rem;
   top: 50%;
   transform: translateY(-50%);
-  height: 1.5rem;
-  width: 3px;
+  height: 1.2rem;
+  width: 2px;
   background-color: var(--text-muted);
   opacity: 0.4;
   border-radius: 1px;
@@ -208,7 +217,8 @@ body {
 
 /* Nav item containers */
 .nav-items-main,
-.nav-items-personal {
+.nav-items-personal,
+.nav-items-home {
   display: flex;
   align-items: center;
 }
@@ -218,7 +228,7 @@ body {
   from {
     max-width: 150px;
     opacity: 1;
-    margin-right: 1.5rem;
+    margin-right: 0.8rem;
   }
   to {
     max-width: 0;
@@ -236,7 +246,7 @@ body {
   to {
     max-width: 150px;
     opacity: 1;
-    margin-right: 1.5rem;
+    margin-right: 0.8rem;
   }
 }
 
@@ -249,7 +259,7 @@ body {
   to {
     max-width: 150px;
     opacity: 1;
-    margin-right: 1.5rem;
+    margin-right: 0.8rem;
   }
 }
 
@@ -263,19 +273,19 @@ body {
 }
 
 .nav-items-main .nav-btn:last-child {
-  margin-right: 1.5rem;
+  margin-right: 0.8rem;
 }
 
 /* When visible - items are expanded */
 .nav-items-main.visible .nav-btn {
   max-width: 150px;
   opacity: 1;
-  margin-right: 1.5rem;
+  margin-right: 0.8rem;
   pointer-events: auto;
   animation: expandItem 0.3s ease both;
 }
 .nav-items-main.visible .nav-btn:last-child { 
-  margin-right: 1.5rem;
+  margin-right: 0.8rem;
   animation: expandItemLast 0.3s ease both;
 }
 
@@ -286,9 +296,8 @@ body {
 .nav-items-main.visible .nav-btn:nth-child(4) { animation-delay: 0.4s; }
 .nav-items-main.visible .nav-btn:nth-child(5) { animation-delay: 0.5s; }
 .nav-items-main.visible .nav-btn:nth-child(6) { animation-delay: 0.6s; }
-.nav-items-main.visible .nav-btn:nth-child(7) { animation-delay: 0.7s; }
 
-/* When hidden - collapse RIGHT to LEFT (contact first → about last) */
+/* When hidden - collapse RIGHT to LEFT (skills first → about last) */
 .nav-items-main.hidden .nav-btn {
   max-width: 0;
   opacity: 0;
@@ -298,13 +307,12 @@ body {
 }
 
 /* Stagger collapse - finishes at ~1s */
-.nav-items-main.hidden .nav-btn:nth-child(7) { animation-delay: 0s; }
-.nav-items-main.hidden .nav-btn:nth-child(6) { animation-delay: 0.12s; }
-.nav-items-main.hidden .nav-btn:nth-child(5) { animation-delay: 0.24s; }
-.nav-items-main.hidden .nav-btn:nth-child(4) { animation-delay: 0.36s; }
-.nav-items-main.hidden .nav-btn:nth-child(3) { animation-delay: 0.48s; }
-.nav-items-main.hidden .nav-btn:nth-child(2) { animation-delay: 0.60s; }
-.nav-items-main.hidden .nav-btn:nth-child(1) { animation-delay: 0.72s; }
+.nav-items-main.hidden .nav-btn:nth-child(6) { animation-delay: 0s; }
+.nav-items-main.hidden .nav-btn:nth-child(5) { animation-delay: 0.12s; }
+.nav-items-main.hidden .nav-btn:nth-child(4) { animation-delay: 0.24s; }
+.nav-items-main.hidden .nav-btn:nth-child(3) { animation-delay: 0.36s; }
+.nav-items-main.hidden .nav-btn:nth-child(2) { animation-delay: 0.48s; }
+.nav-items-main.hidden .nav-btn:nth-child(1) { animation-delay: 0.60s; }
 
 /* ===== PERSONAL NAV ITEMS ===== */
 .nav-items-personal .nav-btn {
@@ -323,7 +331,7 @@ body {
 .nav-items-personal.visible .nav-btn {
   max-width: 150px;
   opacity: 1;
-  margin-right: 1.5rem;
+  margin-right: 0.8rem;
   pointer-events: auto;
   animation: expandItem 0.3s ease both;
 }
@@ -361,10 +369,10 @@ body {
 .nav-items-main.no-animation.visible .nav-btn {
   max-width: 150px;
   opacity: 1;
-  margin-right: 1.5rem;
+  margin-right: 0.8rem;
 }
 .nav-items-main.no-animation.visible .nav-btn:last-child {
-  margin-right: 1.5rem;
+  margin-right: 0.8rem;
 }
 
 .nav-items-main.no-animation.hidden .nav-btn {
@@ -376,7 +384,7 @@ body {
 .nav-items-personal.no-animation.visible .nav-btn {
   max-width: 150px;
   opacity: 1;
-  margin-right: 1.5rem;
+  margin-right: 0.8rem;
 }
 .nav-items-personal.no-animation.visible .nav-btn:last-child {
   margin-right: 0;
@@ -386,6 +394,45 @@ body {
   max-width: 0;
   opacity: 0;
   margin-right: 0;
+}
+
+/* ===== HOME NAV ITEMS ===== */
+.nav-items-home .nav-btn {
+  display: inline-flex;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+  margin-right: 0.8rem;
+}
+
+.nav-items-home.visible .nav-btn {
+  max-width: 150px;
+  opacity: 1;
+  margin-right: 0.8rem;
+  pointer-events: auto;
+  animation: expandItem 0.3s ease both;
+}
+
+.nav-items-home.hidden .nav-btn {
+  max-width: 0;
+  opacity: 0;
+  margin-right: 0;
+  pointer-events: none;
+  animation: collapseItem 0.3s ease both;
+}
+
+.nav-items-home.no-animation.visible .nav-btn {
+  max-width: 150px;
+  opacity: 1;
+  margin-right: 0.8rem;
+  animation: none;
+}
+
+.nav-items-home.no-animation.hidden .nav-btn {
+  max-width: 0;
+  opacity: 0;
+  margin-right: 0;
+  animation: none;
 }
 
 /* ===== BASE BUTTON STYLES ===== */
@@ -414,6 +461,13 @@ body {
   color: var(--accent-primary);
   margin-right: 2px;
   font-weight: 400;
+}
+
+.nav-unit {
+  color: var(--operator-color);
+  margin-right: 2px;
+  font-weight: 500;
+  font-size: 0.85em;
 }
 
 /* Underline effect */
@@ -564,7 +618,15 @@ main {
 .sub-tagline {
   font-size: 0.95rem;
   color: var(--accent-primary);
+  margin-bottom: 1rem;
+}
+
+.intro-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
   margin-bottom: 2rem;
+  max-width: 500px;
 }
 
 .hero-links {
@@ -1327,15 +1389,18 @@ main {
 }
 
 /* Back Home Link */
-/* Go to Personal Button (on home page) */
-.go-personal {
+/* Page Navigation Links */
+.page-nav-links {
   max-width: 1000px;
   margin: 3rem auto;
   padding: 0 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.go-personal-link {
+.page-nav-link {
   display: inline-block;
   color: var(--text-secondary);
   text-decoration: none;
@@ -1347,38 +1412,22 @@ main {
   transition: all var(--transition);
 }
 
-.go-personal-link:hover {
+.page-nav-link:hover {
   border-color: var(--accent-primary);
   color: var(--accent-primary);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px var(--accent-glow);
 }
 
-/* Back Home Button (on personal page) */
-.back-home {
-  max-width: 1000px;
-  margin: 3rem auto;
-  padding: 0 2rem;
-  text-align: center;
+/* Home Page */
+.home-page {
+  padding-top: 80px;
+  min-height: calc(100vh - 150px);
 }
 
-.back-link {
-  display: inline-block;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 1rem;
-  padding: 1rem 2rem;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  transition: all var(--transition);
-}
-
-.back-link:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px var(--accent-glow);
+/* Portfolio Page */
+.portfolio-page {
+  padding-top: 80px;
 }
 
 /* Contact Section */
@@ -1453,78 +1502,30 @@ main {
 /* Responsive */
 @media (max-width: 900px) {
   .mobile-menu-btn {
-    display: block;
+    display: none;
   }
 
   .mobile-overlay {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 99;
+    display: none;
   }
 
   .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    background: var(--bg-secondary);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 5rem 2rem 2rem;
-    gap: 0.5rem;
-    transition: right 0.3s ease;
-    border-left: 1px solid var(--border-color);
-    z-index: 100;
+    max-width: calc(100vw - 100px);
+    padding-right: 0.5rem;
   }
 
-  .nav-links.mobile-open {
-    right: 0;
+  .nav-main-btn {
+    flex-shrink: 0;
   }
 
-  .nav-home,
-  .nav-personal {
-    margin: 0 0 0.5rem 0 !important;
-  }
-
-  .nav-items-main,
-  .nav-items-personal {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  /* Disable accordion animation on mobile - just show/hide */
   .nav-items-main .nav-btn,
-  .nav-items-personal .nav-btn {
-    max-width: none !important;
-    opacity: 1 !important;
-    margin-right: 0 !important;
-    margin-bottom: 0.5rem;
-    padding: 0.75rem 0;
-    font-size: 1rem;
-    width: 100%;
-    text-align: left;
-    animation: none !important;
-  }
-
-  .nav-items-main.hidden,
-  .nav-items-personal.hidden {
-    display: none;
-  }
-  
-  .nav-items-main.visible,
-  .nav-items-personal.visible {
-    display: flex;
+  .nav-items-personal .nav-btn,
+  .nav-items-home .nav-btn {
+    flex-shrink: 0;
   }
 
   .theme-toggle {
-    margin-top: 1rem;
+    flex-shrink: 0;
   }
 }
 
