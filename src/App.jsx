@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
-import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava, FaDownload } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
 import { TbLambda, TbBrain, TbWriting, TbChartLine, TbBrandCSharp, TbMusic } from 'react-icons/tb'
@@ -198,16 +198,21 @@ function Header({ isDark, setIsDark }) {
   const location = useLocation()
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [animationsEnabled, setAnimationsEnabled] = useState(false)
+  const [visitedPages, setVisitedPages] = useState(() => new Set([location.pathname]))
   const isResumePage = location.pathname === '/resume'
   const isPersonalPage = location.pathname === '/personal'
   const isHomePage = location.pathname === '/'
 
   const handleNavigation = (path) => {
-    setAnimationsEnabled(true)
+    setVisitedPages(prev => new Set([...prev, path]))
     navigate(path)
     setMobileMenuOpen(false)
   }
+  
+  // Only animate sections that have been visited before
+  const shouldAnimateHome = visitedPages.has('/')
+  const shouldAnimateResume = visitedPages.has('/resume')
+  const shouldAnimatePersonal = visitedPages.has('/personal')
 
   const handleScrollTo = (id) => {
     scrollToSection(id)
@@ -244,7 +249,7 @@ function Header({ isDark, setIsDark }) {
           </button>
 
           {/* Home nav items */}
-          <div className={`nav-items-home ${isHomePage ? 'visible' : 'hidden'} ${animationsEnabled ? '' : 'no-animation'}`}>
+          <div className={`nav-items-home ${isHomePage ? 'visible' : 'hidden'} ${shouldAnimateHome ? '' : 'no-animation'}`}>
             <button onClick={() => handleScrollTo('contact')} className="nav-btn"><span className="nav-unit">()</span>contact</button>
           </div>
 
@@ -257,7 +262,7 @@ function Header({ isDark, setIsDark }) {
           </button>
           
           {/* Resume nav items */}
-          <div className={`nav-items-main ${isResumePage ? 'visible' : 'hidden'} ${animationsEnabled ? '' : 'no-animation'}`}>
+          <div className={`nav-items-main ${isResumePage ? 'visible' : 'hidden'} ${shouldAnimateResume ? '' : 'no-animation'}`}>
             <button onClick={() => handleScrollTo('education')} className="nav-btn"><span className="nav-unit">()</span>education</button>
             <button onClick={() => handleScrollTo('experience')} className="nav-btn"><span className="nav-unit">()</span>experience</button>
             <button onClick={() => handleScrollTo('projects')} className="nav-btn"><span className="nav-unit">()</span>projects</button>
@@ -274,7 +279,7 @@ function Header({ isDark, setIsDark }) {
           </button>
 
           {/* Personal nav items */}
-          <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'} ${animationsEnabled ? '' : 'no-animation'}`}>
+          <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'} ${shouldAnimatePersonal ? '' : 'no-animation'}`}>
             <button onClick={() => handleScrollTo('interests')} className="nav-btn"><span className="nav-unit">()</span>interests</button>
             <button onClick={() => handleScrollTo('music')} className="nav-btn"><span className="nav-unit">()</span>music</button>
             <button onClick={() => handleScrollTo('thoughts')} className="nav-btn"><span className="nav-unit">()</span>thoughts</button>
@@ -393,6 +398,13 @@ function PortfolioPage() {
 
   return (
     <main className="portfolio-page">
+      {/* DOWNLOAD RESUME */}
+      <div className="resume-download">
+        <a href="/Samson_Rozansky_Resume.pdf" download className="download-btn">
+          <FaDownload /> Download Resume (PDF)
+        </a>
+      </div>
+
       {/* EDUCATION */}
       <section id="education" className="section">
         <div className="section-header">

@@ -1425,9 +1425,35 @@ main {
   min-height: calc(100vh - 150px);
 }
 
-/* Portfolio Page */
+/* Portfolio/Resume Page */
 .portfolio-page {
   padding-top: 80px;
+}
+
+.resume-download {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 2rem 0;
+  text-align: center;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition);
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--accent-glow);
 }
 
 /* Contact Section */
