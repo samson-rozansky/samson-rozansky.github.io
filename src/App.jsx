@@ -313,8 +313,7 @@ function HomePage() {
             Machine Learning <span className="operator">{"|->"}</span> Functional Programming <span className="operator">{"|->"}</span> Systems
           </p>
           <p className="intro-text">
-            Welcome to my corner of the internet. I'm passionate about building intelligent systems 
-            and exploring the elegance of type theory. Feel free to explore my work or reach out!
+            I like computer science and math. Take a look around.
           </p>
         </div>
         <div className="hero-visual">
