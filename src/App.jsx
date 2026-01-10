@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
-import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava, FaDownload } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope, FaSun, FaMoon, FaExternalLinkAlt, FaJava, FaDownload, FaUserFriends } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { SiPython, SiCplusplus, SiJavascript, SiFlask, SiGit, SiLinux, SiLatex, SiPandas } from 'react-icons/si'
 import { TbLambda, TbBrain, TbWriting, TbChartLine, TbBrandCSharp, TbMusic } from 'react-icons/tb'
@@ -250,6 +250,7 @@ function Header({ isDark, setIsDark }) {
 
           {/* Home nav items */}
           <div className={`nav-items-home ${isHomePage ? 'visible' : 'hidden'} ${shouldAnimateHome ? '' : 'no-animation'}`}>
+            <button onClick={() => handleScrollTo('thoughts')} className="nav-btn"><span className="nav-unit">()</span>thoughts</button>
             <button onClick={() => handleScrollTo('contact')} className="nav-btn"><span className="nav-unit">()</span>contact</button>
           </div>
 
@@ -282,7 +283,7 @@ function Header({ isDark, setIsDark }) {
           <div className={`nav-items-personal ${isPersonalPage ? 'visible' : 'hidden'} ${shouldAnimatePersonal ? '' : 'no-animation'}`}>
             <button onClick={() => handleScrollTo('interests')} className="nav-btn"><span className="nav-unit">()</span>interests</button>
             <button onClick={() => handleScrollTo('music')} className="nav-btn"><span className="nav-unit">()</span>music</button>
-            <button onClick={() => handleScrollTo('thoughts')} className="nav-btn"><span className="nav-unit">()</span>thoughts</button>
+            <button onClick={() => handleScrollTo('besties')} className="nav-btn"><span className="nav-unit">()</span>besties</button>
           </div>
           
           <button 
@@ -330,6 +331,20 @@ function HomePage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* THOUGHTS/BLOG */}
+      <section id="thoughts" className="section insights-section">
+        <div className="section-header">
+          <h2><span className="section-keyword">val</span> thoughts <span className="colon">:</span> <span className="type">idea list ref</span> <span className="section-eq">=</span></h2>
+        </div>
+        <div className="insights-placeholder">
+          <TbWriting className="insights-icon" />
+          <p className="insights-coming-soon">Thoughts coming soon...</p>
+          <p className="insights-subtext">
+            <span className="keyword">raise</span> <span className="type">NotYetImplemented</span>
+          </p>
         </div>
       </section>
 
@@ -782,16 +797,34 @@ function PersonalPage({ isDark }) {
         </div>
       </section>
 
-      <section id="thoughts" className="section insights-section">
+      {/* BESTIES */}
+      <section id="besties" className="section besties-section">
         <div className="section-header">
-          <h2><span className="section-keyword">val</span> thoughts <span className="colon">:</span> <span className="type">idea list ref</span> <span className="section-eq">=</span></h2>
+          <h2><span className="section-keyword">val</span> besties <span className="colon">:</span> <span className="type">friend list</span> <span className="section-eq">=</span></h2>
         </div>
-        <div className="insights-placeholder">
-          <TbWriting className="insights-icon" />
-          <p className="insights-coming-soon">Thoughts coming soon...</p>
-          <p className="insights-subtext">
-            <span className="keyword">raise</span> <span className="type">NotYetImplemented</span>
-          </p>
+        <p className="besties-intro">Cool people with cool websites. Check them out!</p>
+        <div className="besties-grid">
+          {[
+            { name: 'James Chen', url: 'https://jchencxh.github.io/' },
+            { name: 'Charlie Duong', url: 'https://cduong.dev/' },
+            { name: 'Richard Peng', url: 'https://www.cs.cmu.edu/~yangp/' },
+            { name: 'Anish Pallati', url: 'http://anish.land/' },
+            { name: 'Anderson Chung', url: 'https://achung.netlify.app/' },
+            { name: 'Zeke Barnett', url: 'https://zeke13.com/' },
+            { name: 'Shira Rubin', url: 'https://rxshira.github.io/' },
+          ].map((friend, i) => (
+            <a 
+              key={i} 
+              href={friend.url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="bestie-card"
+            >
+              <FaUserFriends className="bestie-icon" />
+              <span className="bestie-name">{friend.name}</span>
+              <FaExternalLinkAlt className="bestie-link-icon" />
+            </a>
+          ))}
         </div>
       </section>
 

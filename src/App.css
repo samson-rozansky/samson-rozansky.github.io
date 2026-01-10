@@ -1388,6 +1388,70 @@ main {
   color: var(--text-muted);
 }
 
+/* Besties Section */
+.besties-section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.besties-intro {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.besties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.bestie-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: var(--text-secondary);
+  backdrop-filter: blur(8px);
+  transition: all var(--transition);
+}
+
+.bestie-card:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+.bestie-icon {
+  font-size: 1.5rem;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.bestie-name {
+  font-size: 1rem;
+  font-weight: 500;
+  flex: 1;
+}
+
+.bestie-link-icon {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color var(--transition);
+}
+
+.bestie-card:hover .bestie-link-icon {
+  color: var(--accent-primary);
+}
+
 /* Back Home Link */
 /* Page Navigation Links */
 .page-nav-links {
